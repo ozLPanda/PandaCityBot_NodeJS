@@ -1,10 +1,6 @@
-import sequelize from "sequelize";
+import {Model} from "sequelize";
 
-export default class DefaultModel extends sequelize.Model {
-    constructor(props) {
-        super(props);
-    }
-
+export default class CommonModel extends Model {
     execute(ctx, cmd, obj){
         switch(cmd){
             case "create":

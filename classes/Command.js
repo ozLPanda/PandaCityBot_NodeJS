@@ -1,3 +1,4 @@
+// Базовый класс любой команды
 export default class Command{
     // Название команды
     cmd = null

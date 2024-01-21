@@ -1,6 +1,11 @@
 import {Sequelize} from "sequelize";
+import UserModel from "../DataBaseModels/UserModel.js";
 
 export default class DataBase extends Sequelize{
+
+    models = {
+        "UserModel": UserModel
+    }
 
     constructor() {
         super('bot', 'root', '', {
@@ -12,6 +17,13 @@ export default class DataBase extends Sequelize{
                 acquire: 30000, //время в миллисекундах, в течение которого будет осуществляться попытка установить соединение, прежде чем будет сгенерировано исключение (Default: 60000)
                 idle: 10000, //время простоя в миллисекундах, по истечении которого соединение покинет пул (Default: 1000)
             },
-        })
+        });
+        this.init();
+    }
+
+    init(){
+        for(let key in this.models){
+            this.models[key].init(this);
+        }
     }
 }
