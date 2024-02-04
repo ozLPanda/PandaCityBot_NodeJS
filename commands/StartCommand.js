@@ -10,7 +10,7 @@ export default class StartCommand extends CommandAndAnswer {
             try {
                 let modelUser = bot.db.models.UserModel;
                 await modelUser.defaultCreateUser(msg.chat.id, msg.text);
-            }catch (ex){
+            } catch (ex){
                 await bot.sendMessage(ex);
             }
         })
