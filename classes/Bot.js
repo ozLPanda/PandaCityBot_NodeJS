@@ -6,6 +6,7 @@ export default class Bot extends TelegramBot {
     _token = null
     _bot = null;
     _commands = [];
+    _commands_callback_query = [];
     machineStatesUser = {};
     models = {};
     db = null; // База данных
@@ -39,12 +40,23 @@ export default class Bot extends TelegramBot {
                 await this.sendMessage(msg.chat.id, ErrorEnum.UnknownCommand);
             }
         })
+        super.on("callback_query", async (ctx) =>{
+            let cmd = this._commands_callback_query.find(el=>el.cmd == ctx.data);
+            if(cmd != null)
+                cmd?.onCallback(ctx.message);
+        })
     }
 
     // Регистрируем команды для бота
     regCommand(command){
         this._commands.push(command);
         console.log(`Registered command: ${command.cmd}`);
+    }
+
+    // Регистрируем команду для ответа на нажатие кнопок
+    regCallbackCommand(command){
+        this._commands_callback_query.push(command);
+        console.log(`Register callback command ${command.cmd}`);
     }
 
     // Ищем нужную команду и выполняем её

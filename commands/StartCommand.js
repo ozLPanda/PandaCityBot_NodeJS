@@ -1,18 +1,41 @@
 import CommandAndAnswer from "../classes/CommandAndAnswer.js";
 import UserModel from "../DataBaseModels/UserModel.js";
+import {MainMenuInlineKeyboard} from "../InlineKeyboards/MainMenuInlineKeyboard.js";
 
 export default class StartCommand extends CommandAndAnswer {
     constructor(bot) {
         super("/start", async (msg) => {
-            await bot.sendMessage(msg.chat.id, "Привет, я твой гид, я помогу тебе достичь высот! Придумай название своему городу");
-            bot.regMachineState(msg, this);
+            if (await this.ifUserExist(bot, msg)) {
+                await MainMenuInlineKeyboard.showMainMenu(bot, msg);
+            } else {
+                await bot.sendMessage(msg.chat.id, "Привет, я твой гид, я помогу тебе достичь высот! Придумай название своему городу");
+                bot.regMachineState(msg, this);
+            }
         }, async (msg) => {
             try {
                 let modelUser = bot.db.models.UserModel;
                 await modelUser.defaultCreateUser(msg.chat.id, msg.text);
-            } catch (ex){
+
+                await bot.sendMessage(msg.chat.id, "Ваш город успешно создан!");
+                await MainMenuInlineKeyboard.showMainMenu(bot, msg);
+            } catch (ex) {
                 await bot.sendMessage(ex);
             }
         })
+    }
+
+    // Если пользователь существует
+    async ifUserExist(bot, msg) {
+        let model = bot.db.models.UserModel;
+        let check = await model.findOne(
+            {
+                where:
+                    {idChat: msg.chat.id}
+            }
+        );
+        if (check != null)
+            return true
+        else
+            return false
     }
 }

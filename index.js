@@ -1,6 +1,7 @@
 import Bot from "./classes/Bot.js";
 import StartCommand from "./commands/StartCommand.js";
 import DataBase from "./classes/DataBase.js";
+import BuildMenuCommandCallback from "./commandsCallback/BuildMenuCommandCallback.js";
 
 let API_KEY_BOT = "6249415706:AAHb3aqqUw3IT_FXvqaPt1Qy6YeRgKhEapA";
 let bot = new Bot(API_KEY_BOT);
@@ -14,6 +15,8 @@ await db.authenticate().then(async res=>{
     console.error(ex);
 });
 
-
 bot.regCommand(new StartCommand(bot));
+
+bot.regCallbackCommand(new BuildMenuCommandCallback(bot));
+
 bot.on();
