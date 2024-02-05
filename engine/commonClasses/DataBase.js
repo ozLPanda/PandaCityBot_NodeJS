@@ -1,6 +1,6 @@
 import {Sequelize} from "sequelize";
-import UserModel from "../DataBaseModels/UserModel.js";
-import BuildItemsModel from "../dataBaseModels/BuildItemsModel.js";
+import UserModel from "../../src/dataBaseModels/UserModel.js";
+import BuildItemsModel from "../../src/dataBaseModels/BuildItemsModel.js";
 
 export default class DataBase extends Sequelize {
 

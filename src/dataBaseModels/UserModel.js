@@ -1,6 +1,6 @@
 import {DataTypes} from "sequelize";
-import CommonModel from "../classes/CommonModel.js";
-import {ErrorEnum} from "../Enums/ErrorEnums.js";
+import CommonModel from "../../engine/commonClasses/CommonModel.js";
+import {ErrorEnum} from "../enums/ErrorEnums.js";
 import moment from "moment";
 
 class UserModel extends CommonModel {

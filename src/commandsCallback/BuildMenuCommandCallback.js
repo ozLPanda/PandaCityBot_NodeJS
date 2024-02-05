@@ -1,6 +1,6 @@
-import Command from "../classes/Command.js";
+import Command from "../../engine/commonClasses/Command.js";
 import {MainMenuInlineKeyboard} from "../inlineKeyboards/MainMenuInlineKeyboard.js";
-import inlineButtons from "../classes/InlineButtons.js";
+import inlineButtons from "../../engine/commonClasses/InlineButtons.js";
 import {Op} from "sequelize";
 
 export default class BuildMenuCommandCallback extends Command {

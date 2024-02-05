@@ -1,6 +1,6 @@
-import CommandAndAnswer from "../classes/CommandAndAnswer.js";
-import UserModel from "../DataBaseModels/UserModel.js";
-import {MainMenuInlineKeyboard} from "../InlineKeyboards/MainMenuInlineKeyboard.js";
+import CommandAndAnswer from "../../engine/commonClasses/CommandAndAnswer.js";
+import UserModel from "../dataBaseModels/UserModel.js";
+import {MainMenuInlineKeyboard} from "../inlineKeyboards/MainMenuInlineKeyboard.js";
 
 export default class StartCommand extends CommandAndAnswer {
     constructor(bot) {

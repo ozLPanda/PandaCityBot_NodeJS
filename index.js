@@ -1,7 +1,7 @@
-import Bot from "./classes/Bot.js";
-import StartCommand from "./commands/StartCommand.js";
-import DataBase from "./classes/DataBase.js";
-import BuildMenuCommandCallback from "./commandsCallback/BuildMenuCommandCallback.js";
+import Bot from "./engine/commonClasses/Bot.js";
+import StartCommand from "./src/commands/StartCommand.js";
+import DataBase from "./engine/commonClasses/DataBase.js";
+import BuildMenuCommandCallback from "./src/commandsCallback/BuildMenuCommandCallback.js";
 
 let API_KEY_BOT = "6249415706:AAHb3aqqUw3IT_FXvqaPt1Qy6YeRgKhEapA";
 let bot = new Bot(API_KEY_BOT);

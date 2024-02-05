@@ -1,4 +1,4 @@
-import inlineButtons from "../classes/InlineButtons.js";
+import inlineButtons from "../../engine/commonClasses/InlineButtons.js";
 
 export const MainMenuInlineKeyboard = {
     async showMainMenu(bot, msg) {

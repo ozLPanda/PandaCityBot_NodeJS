@@ -1,6 +1,6 @@
 import TelegramBot from "node-telegram-bot-api";
 import MachineStates from "./MachineStates.js";
-import {ErrorEnum} from "../Enums/ErrorEnums.js";
+import {ErrorEnum} from "../../src/enums/ErrorEnums.js";
 
 export default class Bot extends TelegramBot {
     _token = null
