@@ -2,6 +2,7 @@ import {DataTypes} from "sequelize";
 import CommonModel from "../../engine/commonClasses/CommonModel.js";
 import {ErrorEnum} from "../enums/ErrorEnums.js";
 import moment from "moment";
+import CityInfo from "../classes/cityInfo.js";
 
 class UserModel extends CommonModel {
     static db = null;
@@ -9,6 +10,7 @@ class UserModel extends CommonModel {
         money: 500,
         lvl: 1,
         adminLvl: 0,
+        cityInfo: JSON.stringify(new CityInfo())
     }
 
     static init(sequelize) {

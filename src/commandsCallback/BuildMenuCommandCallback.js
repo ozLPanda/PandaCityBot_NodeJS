@@ -5,7 +5,7 @@ import {Op} from "sequelize";
 
 export default class BuildMenuCommandCallback extends Command {
     constructor(bot) {
-        super("menu.builds", async (msg) => {
+        super("menu.builds", async (msg, ctx) => {
             let _user = await bot.db.models.UserModel.findOne({where: {idChat: msg.chat.id}});
             if (_user != null) {
                 let buildList = await bot.db.models.BuildModel.findAll({
@@ -18,10 +18,11 @@ export default class BuildMenuCommandCallback extends Command {
                 let arr_btns = buildList.map(el=>{
                     return {
                         text: el.name,
-                        callback_data: el.cmd
+                        callback_data: `menu.builds.buy/${el.id}`
                     }
                 });
-                await bot.sendMessage(msg.chat.id, "Чтобы вы хотели построить?", new inlineButtons(arr_btns))
+                await bot.answerCallbackQuery(ctx.id);
+                await bot.sendMessage(msg.chat.id, "Чтобы вы хотели построить?", new inlineButtons(arr_btns));
             }
         });
     }

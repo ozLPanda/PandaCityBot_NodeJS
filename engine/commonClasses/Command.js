@@ -9,7 +9,7 @@ export default class Command{
         this.callback = callback
     }
 
-    onCallback(msg){
-        this.callback(msg);
+    onCallback(msg, ctx){
+        this.callback(msg, ctx);
     }
 }

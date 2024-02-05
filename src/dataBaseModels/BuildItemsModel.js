@@ -32,6 +32,10 @@ class BuildItemsModel extends CommonModel{
                 },
                 cmd:{
                     type: DataTypes.STRING
+                },
+                objectName:{
+                    type: DataTypes.STRING,
+                    allowNull: false,
                 }
             },
             {

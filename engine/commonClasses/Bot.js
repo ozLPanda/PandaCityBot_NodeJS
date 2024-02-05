@@ -41,9 +41,14 @@ export default class Bot extends TelegramBot {
             }
         })
         super.on("callback_query", async (ctx) =>{
-            let cmd = this._commands_callback_query.find(el=>el.cmd == ctx.data);
+            // Если команда составная, делим её на 2 части
+            let search_val = ctx.data;
+            if(ctx.data.indexOf("/") != -1){
+                search_val = ctx.data.split("/")[0];
+            }
+            let cmd = this._commands_callback_query.find(el=>el.cmd == search_val);
             if(cmd != null)
-                cmd?.onCallback(ctx.message);
+                cmd?.onCallback(ctx.message, ctx);
         })
     }
 

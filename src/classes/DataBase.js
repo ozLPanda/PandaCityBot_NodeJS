@@ -1,12 +1,14 @@
 import {Sequelize} from "sequelize";
-import UserModel from "../../src/dataBaseModels/UserModel.js";
-import BuildItemsModel from "../../src/dataBaseModels/BuildItemsModel.js";
+import UserModel from "../dataBaseModels/UserModel.js";
+import BuildItemsModel from "../dataBaseModels/BuildItemsModel.js";
+import LogsModel from "../dataBaseModels/LogsModel.js";
 
 export default class DataBase extends Sequelize {
 
     models = {
         "UserModel": UserModel,
-        "BuildModel": BuildItemsModel
+        "BuildModel": BuildItemsModel,
+        "LogsModel": LogsModel,
     }
 
     constructor() {
