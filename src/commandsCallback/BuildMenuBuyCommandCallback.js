@@ -1,9 +1,5 @@
 import Command from "../../engine/commonClasses/Command.js";
-import moment from "moment";
 import CityInfo from "../classes/cityInfo.js";
-import BuildCategoryModel from "../dataBaseModels/BuildCategoryModel.js";
-import buildItemsModel from "../dataBaseModels/BuildItemsModel.js";
-import UserModel from "../dataBaseModels/UserModel.js";
 import sequelize from "sequelize";
 
 
@@ -41,8 +37,9 @@ export default class BuildMenuBuyCommandCallback extends Command {
                     let log = await bot.db.models.LogsModel.create({
                         name: `Купил ${build.name}`,
                         dateTime: Math.round(Number(new Date()) / 1000),
-                        idUser: user.idChat,
+                        id_user: user.idChat,
                     });
+
                     console.log(`Log create ${user.name}`);
                 } else {
                     await bot.answerCallbackQuery(ctx.id).then(async () => {

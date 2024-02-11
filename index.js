@@ -12,7 +12,6 @@ let bot = new Bot(API_KEY_BOT);
 let db = new DataBase();
 
 BuildItemsModel.hasOne(BuildCategoryModel, {as: "Category", foreignKey: "id"});
-// BuildCategoryModel.hasMany(BuildItemsModel, {as: "Items", foreignKey: "idCategory"});
 
 await db.authenticate().then(async res=>{
     console.log('DataBase connected');

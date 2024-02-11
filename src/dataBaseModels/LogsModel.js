@@ -13,16 +13,16 @@ class LogsModel extends CommonModel {
         super.init(
             {
                 id: {
-                    type: DataTypes.INTEGER,
+                    type: DataTypes.BIGINT,
                     primaryKey: true,
                 },
                 name: {
                     type: DataTypes.TEXT
                 },
                 dateTime: {
-                    type: DataTypes.INTEGER
+                    type: DataTypes.BIGINT
                 },
-                idUser: {
+                id_user: {
                     type: DataTypes.BIGINT,
                 },
             },
