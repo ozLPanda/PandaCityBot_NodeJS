@@ -3,11 +3,16 @@ import StartCommand from "./src/commands/StartCommand.js";
 import DataBase from "./src/classes/DataBase.js";
 import BuildMenuCommandCallback from "./src/commandsCallback/BuildMenuCommandCallback.js";
 import BuildMenuBuyCommandCallback from "./src/commandsCallback/BuildMenuBuyCommandCallback.js";
+import BuildItemsModel from "./src/dataBaseModels/BuildItemsModel.js";
+import BuildCategoryModel from "./src/dataBaseModels/BuildCategoryModel.js";
 
 let API_KEY_BOT = "6249415706:AAHb3aqqUw3IT_FXvqaPt1Qy6YeRgKhEapA";
 let bot = new Bot(API_KEY_BOT);
 
 let db = new DataBase();
+
+BuildItemsModel.hasOne(BuildCategoryModel, {as: "Category", foreignKey: "id"});
+// BuildCategoryModel.hasMany(BuildItemsModel, {as: "Items", foreignKey: "idCategory"});
 
 await db.authenticate().then(async res=>{
     console.log('DataBase connected');

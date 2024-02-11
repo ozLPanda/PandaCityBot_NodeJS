@@ -1,18 +1,34 @@
 import Command from "../../engine/commonClasses/Command.js";
 import moment from "moment";
 import CityInfo from "../classes/cityInfo.js";
+import BuildCategoryModel from "../dataBaseModels/BuildCategoryModel.js";
+import buildItemsModel from "../dataBaseModels/BuildItemsModel.js";
+import UserModel from "../dataBaseModels/UserModel.js";
+import sequelize from "sequelize";
+
 
 export default class BuildMenuBuyCommandCallback extends Command {
     constructor(bot) {
         super("menu.builds.buy", async (msg, ctx) => {
             let idBuild = ctx.data.split("/")[1];
-            let user = await bot.db.models.UserModel.findOne({ where: {idChat: msg.chat.id} })
-            let build = await bot.db.models.BuildModel.findOne({ where: {id: idBuild} });
+            let user = await bot.db.models.UserModel.findOne({where: {idChat: msg.chat.id}})
+            let build = await bot.db.models.BuildModel.findOne({
+                where: {id: idBuild},
+                include: [
+                    {
+                        association: "Category",
+                        on: {
+                            "id": sequelize.col("BuildItemsModel.idCategory")
+                        },
+                    }
+                ],
+                group: "id",
+            });
 
-            if(build != null && user != null) {
-                if(user.money >= build.price) {
+            if (build != null && user != null) {
+                if (user.money >= build.price) {
                     let cityInfo = new CityInfo(user.cityInfo);
-                    cityInfo[build.objectName] += 1;
+                    cityInfo[build.Category.dataValues.code_name][build.objectName] += 1;
 
                     await bot.answerCallbackQuery(ctx.id);
                     await bot.sendMessage(msg.chat.id, `Вы успешно купили ${build.name}`);
@@ -28,9 +44,10 @@ export default class BuildMenuBuyCommandCallback extends Command {
                         idUser: user.idChat,
                     });
                     console.log(`Log create ${user.name}`);
-                }else{
-                    await bot.answerCallbackQuery(ctx.id);
-                    await bot.sendMessage(msg.chat.id, "У вас недостаточно денег");
+                } else {
+                    await bot.answerCallbackQuery(ctx.id).then(async () => {
+                        await bot.sendMessage(msg.chat.id, "У вас недостаточно денег");
+                    })
                 }
             }
         });

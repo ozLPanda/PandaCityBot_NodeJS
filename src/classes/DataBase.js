@@ -2,6 +2,7 @@ import {Sequelize} from "sequelize";
 import UserModel from "../dataBaseModels/UserModel.js";
 import BuildItemsModel from "../dataBaseModels/BuildItemsModel.js";
 import LogsModel from "../dataBaseModels/LogsModel.js";
+import BuildCategoryModel from "../dataBaseModels/BuildCategoryModel.js";
 
 export default class DataBase extends Sequelize {
 
@@ -9,6 +10,7 @@ export default class DataBase extends Sequelize {
         "UserModel": UserModel,
         "BuildModel": BuildItemsModel,
         "LogsModel": LogsModel,
+        "BuildCategoryModel": BuildCategoryModel,
     }
 
     constructor() {

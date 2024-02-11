@@ -12,7 +12,7 @@ export default class CityInfo {
     }
 
     buildsFactory = {
-        smallFactory1: 1,
+        smallFactory1: 0,
     }
 
     constructor(json) {

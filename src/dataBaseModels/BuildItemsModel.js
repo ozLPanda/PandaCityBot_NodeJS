@@ -1,5 +1,6 @@
 import CommonModel from "../../engine/commonClasses/CommonModel.js";
 import {DataTypes} from "sequelize";
+import BuildCategoryModel from "./BuildCategoryModel.js";
 
 class BuildItemsModel extends CommonModel{
     static db = null;
@@ -36,6 +37,10 @@ class BuildItemsModel extends CommonModel{
                 objectName:{
                     type: DataTypes.STRING,
                     allowNull: false,
+                },
+                idCategory:{
+                    type: DataTypes.INTEGER,
+                    allowNull: false,
                 }
             },
             {
@@ -46,5 +51,7 @@ class BuildItemsModel extends CommonModel{
         )
     }
 }
+
+// BuildItemsModel.hasOne(BuildCategoryModel);
 
 export default BuildItemsModel
