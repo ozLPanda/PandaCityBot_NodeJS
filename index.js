@@ -1,10 +1,11 @@
 import Bot from "./engine/commonClasses/Bot.js";
 import StartCommand from "./src/commands/StartCommand.js";
 import DataBase from "./src/classes/DataBase.js";
-import BuildMenuCommandCallback from "./src/commandsCallback/BuildMenuCommandCallback.js";
+import BuildMenuCommand from "./src/commands/BuildMenuCommand.js";
 import BuildMenuBuyCommandCallback from "./src/commandsCallback/BuildMenuBuyCommandCallback.js";
 import BuildItemsModel from "./src/dataBaseModels/BuildItemsModel.js";
 import BuildCategoryModel from "./src/dataBaseModels/BuildCategoryModel.js";
+import InfoCityCommand from "./src/commands/InfoCityCommand.js";
 
 let API_KEY_BOT = "6249415706:AAHb3aqqUw3IT_FXvqaPt1Qy6YeRgKhEapA";
 let bot = new Bot(API_KEY_BOT);
@@ -22,9 +23,17 @@ await db.authenticate().then(async res=>{
 
 // Список команд бота
 bot.regCommand(new StartCommand(bot));
+bot.regCommand(new BuildMenuCommand(bot));
+bot.regCommand(new InfoCityCommand(bot));
 
 // Список команд под callback
-bot.regCallbackCommand(new BuildMenuCommandCallback(bot));
 bot.regCallbackCommand(new BuildMenuBuyCommandCallback(bot));
+
+bot.setMyCommands([
+    {
+        command: "/start",
+        description: "Запустить бота"
+    },
+])
 
 bot.on();

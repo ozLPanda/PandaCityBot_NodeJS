@@ -36,6 +36,9 @@ class UserModel extends CommonModel {
                 },
                 lvl: {
                     type: DataTypes.INTEGER
+                },
+                created_at: {
+                    type: DataTypes.INTEGER
                 }
             },
             {

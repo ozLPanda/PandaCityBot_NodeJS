@@ -32,12 +32,11 @@ export default class Bot extends TelegramBot {
 
             }else {
                 // Ищем что хочет использовать пользователь
-                if (msg.text[0] == "/") {
-                    if(this.checkCommand(msg) == true){
-                        return
-                    }
+                if(this.checkCommand(msg) == true){
+                    return
+                }else {
+                    await this.sendMessage(msg.chat.id, ErrorEnum.UnknownCommand);
                 }
-                await this.sendMessage(msg.chat.id, ErrorEnum.UnknownCommand);
             }
         })
         super.on("callback_query", async (ctx) =>{

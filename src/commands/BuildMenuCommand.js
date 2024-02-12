@@ -1,11 +1,11 @@
 import Command from "../../engine/commonClasses/Command.js";
-import {MainMenuInlineKeyboard} from "../inlineKeyboards/MainMenuInlineKeyboard.js";
 import inlineButtons from "../../engine/commonClasses/InlineButtons.js";
 import {Op} from "sequelize";
+import {Helper} from "../functions/commonFunctions.js";
 
-export default class BuildMenuCommandCallback extends Command {
+export default class BuildMenuCommand extends Command {
     constructor(bot) {
-        super("menu.builds", async (msg, ctx) => {
+        super("🏗Построить здания", async (msg) => {
             let _user = await bot.db.models.UserModel.findOne({where: {idChat: msg.chat.id}});
             if (_user != null) {
                 let buildList = await bot.db.models.BuildModel.findAll({
@@ -17,11 +17,11 @@ export default class BuildMenuCommandCallback extends Command {
                 });
                 let arr_btns = buildList.map(el=>{
                     return {
-                        text: el.name,
+                        text: `${Helper.text.getIcons(el.objectName)}${el.name} (${Helper.math.formatPrice(el.price)})`,
                         callback_data: `menu.builds.buy/${el.id}`
                     }
                 });
-                await bot.answerCallbackQuery(ctx.id);
+                // await bot.answerCallbackQuery(ctx.id);
                 await bot.sendMessage(msg.chat.id, "Чтобы вы хотели построить?", new inlineButtons(arr_btns));
             }
         });

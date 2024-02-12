@@ -1,12 +1,11 @@
 import CommandAndAnswer from "../../engine/commonClasses/CommandAndAnswer.js";
-import UserModel from "../dataBaseModels/UserModel.js";
-import {MainMenuInlineKeyboard} from "../inlineKeyboards/MainMenuInlineKeyboard.js";
+import {MainMenuKeyboard} from "../keyboards/MainMenuKeyboard.js";
 
 export default class StartCommand extends CommandAndAnswer {
     constructor(bot) {
         super("/start", async (msg) => {
             if (await this.ifUserExist(bot, msg)) {
-                await MainMenuInlineKeyboard.showMainMenu(bot, msg);
+                await MainMenuKeyboard.showMainMenu(bot, msg);
             } else {
                 await bot.sendMessage(msg.chat.id, "Привет, я твой гид, я помогу тебе достичь высот! Придумай название своему городу");
                 bot.regMachineState(msg, this);
@@ -17,7 +16,7 @@ export default class StartCommand extends CommandAndAnswer {
                 await modelUser.defaultCreateUser(msg.chat.id, msg.text);
 
                 await bot.sendMessage(msg.chat.id, "Ваш город успешно создан!");
-                await MainMenuInlineKeyboard.showMainMenu(bot, msg);
+                await MainMenuKeyboard.showMainMenu(bot, msg);
             } catch (ex) {
                 await bot.sendMessage(ex);
             }
