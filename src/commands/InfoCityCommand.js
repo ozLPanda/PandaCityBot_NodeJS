@@ -20,7 +20,7 @@ export default class InfoCityCommand extends Command{
                 str += `Ваше имя: ${user.name}\n`;
                 str += `Казна города: ${Helper.math.formatPrice(user.money)}💵\n`;
                 str += `Ваша прибыль каждые 5 минут: - \n`;
-                str += `Дата регистрации: ${date?.format("YYYY.MM.DD HH:mm:ss")}\n`;
+                str += `Дата регистрации: ${date?.format("DD.MM.YYYY HH:mm:ss")}\n`;
 
                 await bot.sendMessage(msg.chat.id, str);
             }
