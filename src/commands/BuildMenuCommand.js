@@ -8,13 +8,8 @@ export default class BuildMenuCommand extends Command {
         super("🏗Построить здания", async (msg) => {
             let _user = await bot.db.models.UserModel.findOne({where: {idChat: msg.chat.id}});
             if (_user != null) {
-                let buildList = await bot.db.models.BuildModel.findAll({
-                    where: {
-                        lvl: {
-                            [Op.lte]: _user.dataValues.lvl
-                        }
-                    }
-                });
+                let buildList = bot.services.ServiceBuildItems.items;
+
                 let arr_btns = buildList.map(el=>{
                     return {
                         text: `${Helper.text.getIcons(el.objectName)}${el.name} (${Helper.math.formatPrice(el.price)})`,

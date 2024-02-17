@@ -10,6 +10,9 @@ export default class Bot extends TelegramBot {
     machineStatesUser = {};
     models = {};
     db = null; // База данных
+    services = {} // Сервисы
+    timeServicesUpdate = 60_000;
+    intervalServices = null;
 
     constructor(token) {
         super(token, {
@@ -19,6 +22,8 @@ export default class Bot extends TelegramBot {
             }
         });
         console.log("Bot created");
+
+        this.startServices().then();
     }
 
     async on(){
@@ -89,6 +94,32 @@ export default class Bot extends TelegramBot {
             let machineState = this.machineStatesUser[msg.chat.id];
             delete this.machineStatesUser[msg.chat.id];
             return {status: machineState.isValid(), machineState}
+        }
+    }
+
+    // Регистрация сервисов
+    registerService(service){
+        this.services[service.name] = service;
+    }
+
+    // Укзаываем в мс
+    setTimeUpdateServices(num){
+        this.timeServicesUpdate = Number(num);
+        clearInterval(this.intervalServices);
+        this.startServices();
+    }
+
+    // Запуск сервисов
+    async startServices(){
+        this.intervalServices = setInterval(()=>{
+            this.updateServices();
+        }, this.timeServicesUpdate);
+        console.log("Services started");
+    }
+
+    async updateServices(){
+        for(let key in this.services){
+            this.services[key].update(this);
         }
     }
 }

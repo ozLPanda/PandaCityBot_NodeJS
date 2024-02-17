@@ -1,6 +1,8 @@
 import Command from "../../engine/commonClasses/Command.js";
 import {Helper} from "../functions/commonFunctions.js";
 import moment from "moment";
+import CityInfo from "../classes/cityInfo.js";
+import {IconEnums} from "../enums/iconEnums.js";
 
 export default class InfoCityCommand extends Command{
     constructor(bot) {
@@ -21,6 +23,18 @@ export default class InfoCityCommand extends Command{
                 str += `Казна города: ${Helper.math.formatPrice(user.money)}💵\n`;
                 str += `Ваша прибыль каждые 5 минут: - \n`;
                 str += `Дата регистрации: ${date?.format("DD.MM.YYYY HH:mm:ss")}\n`;
+
+                // Вывод кулпенных зданий и полная информация о CityInfo
+                let cityInfo = new CityInfo(user.cityInfo);
+                let data = cityInfo.getCityInfo();
+                let buildList = bot.services.ServiceBuildItems.items;
+                for(let key in data){
+                    let count = data[key];
+                    if(Number(count) > 0){
+                        let buildName = `${IconEnums[key]}${buildList.find(i => i.objectName == key).name}: ${count}`
+                        str += `${buildName}\n`
+                    }
+                }
 
                 await bot.sendMessage(msg.chat.id, str);
             }

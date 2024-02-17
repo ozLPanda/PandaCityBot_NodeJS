@@ -1,4 +1,8 @@
 export default class CityInfo {
+    cityInfoKeys = ["buildsHouse", "business", "buildsFactory"];
+
+    _json = "";
+
     buildsHouse = {
         smallHouse1: 0,
         middleHouse1: 0,
@@ -17,14 +21,23 @@ export default class CityInfo {
 
     constructor(json) {
         if(json != null) {
+            this._json = json;
             let obj = JSON.parse(json);
-            console.log(obj);
             Object.assign(this, obj);
-            console.log(this);
         }
     }
 
     getJSON(){
         return JSON.stringify(this);
+    }
+
+    getCityInfo(){
+        let resp = {}
+        for(let keyCategory of this.cityInfoKeys){
+            for(let key in this[keyCategory]){
+                resp[key] = this.buildsHouse[key];
+            }
+        }
+        return resp;
     }
 }

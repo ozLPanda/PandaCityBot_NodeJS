@@ -8,18 +8,8 @@ export default class BuildMenuBuyCommandCallback extends Command {
         super("menu.builds.buy", async (msg, ctx) => {
             let idBuild = ctx.data.split("/")[1];
             let user = await bot.db.models.UserModel.findOne({where: {idChat: msg.chat.id}})
-            let build = await bot.db.models.BuildModel.findOne({
-                where: {id: idBuild},
-                include: [
-                    {
-                        association: "Category",
-                        on: {
-                            "id": sequelize.col("BuildItemsModel.idCategory")
-                        },
-                    }
-                ],
-                group: "id",
-            });
+
+            let build = bot.services.ServiceBuildItems.items.find(i => i.id == idBuild);
 
             if (build != null && user != null) {
                 if (user.money >= build.price) {
