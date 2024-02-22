@@ -39,6 +39,9 @@ class UserModel extends CommonModel {
                 },
                 created_at: {
                     type: DataTypes.INTEGER
+                },
+                last_payday: {
+                    type: DataTypes.INTEGER
                 }
             },
             {

@@ -122,4 +122,9 @@ export default class Bot extends TelegramBot {
             this.services[key].update(this);
         }
     }
+
+    //Helpers method
+    async getUser(msg){
+        return await this.db.models.UserModel.findOne({where: {idChat: msg.chat.id}});
+    }
 }

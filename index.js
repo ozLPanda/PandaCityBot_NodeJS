@@ -7,6 +7,7 @@ import BuildItemsModel from "./src/dataBaseModels/BuildItemsModel.js";
 import BuildCategoryModel from "./src/dataBaseModels/BuildCategoryModel.js";
 import InfoCityCommand from "./src/commands/InfoCityCommand.js";
 import addServices from "./src/functions/addServices.js";
+import PaydayCommand from "./src/commands/PaydayCommand.js";
 
 let API_KEY_BOT = "6249415706:AAHb3aqqUw3IT_FXvqaPt1Qy6YeRgKhEapA";
 let bot = new Bot(API_KEY_BOT);
@@ -29,6 +30,7 @@ addServices(bot);
 bot.regCommand(new StartCommand(bot));
 bot.regCommand(new BuildMenuCommand(bot));
 bot.regCommand(new InfoCityCommand(bot));
+bot.regCommand(new PaydayCommand(bot));
 
 // Список команд под callback
 bot.regCallbackCommand(new BuildMenuBuyCommandCallback(bot));
