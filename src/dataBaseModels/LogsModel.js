@@ -19,7 +19,7 @@ class LogsModel extends CommonModel {
                 name: {
                     type: DataTypes.TEXT
                 },
-                dateTime: {
+                date_time: {
                     type: DataTypes.BIGINT
                 },
                 id_user: {

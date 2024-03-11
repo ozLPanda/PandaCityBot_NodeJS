@@ -29,7 +29,7 @@ export default class StartCommand extends CommandAndAnswer {
         let check = await model.findOne(
             {
                 where:
-                    {idChat: msg.chat.id}
+                    {id_chat: msg.chat.id}
             }
         );
         if (check != null)

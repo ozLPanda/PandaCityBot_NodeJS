@@ -2,7 +2,7 @@ import {DataTypes} from "sequelize";
 import CommonModel from "../../engine/commonClasses/CommonModel.js";
 import {ErrorEnum} from "../enums/ErrorEnums.js";
 import moment from "moment";
-import CityInfo from "../classes/cityInfo.js";
+import CityInfo from "../classes/CityInfo.js";
 
 class UserModel extends CommonModel {
     static db = null;
@@ -18,17 +18,17 @@ class UserModel extends CommonModel {
         console.log("UserModel loaded");
         super.init(
             {
-                idChat: {
+                id_chat: {
                     type: DataTypes.BIGINT,
                     primaryKey: true,
                 },
                 name: {
                     type: DataTypes.STRING
                 },
-                cityInfo: {
+                city_info: {
                     type: DataTypes.JSON
                 },
-                adminLvl: {
+                admin_lvl: {
                     type: DataTypes.TINYINT,
                 },
                 money: {
@@ -36,6 +36,9 @@ class UserModel extends CommonModel {
                 },
                 lvl: {
                     type: DataTypes.INTEGER
+                },
+                rate_speed: {
+                    type: DataTypes.FLOAT
                 },
                 created_at: {
                     type: DataTypes.INTEGER
@@ -66,7 +69,7 @@ class UserModel extends CommonModel {
             if (name.length < 5 || name.length > 20) {
                 throw new Error(ErrorEnum.IncorrectName);
             }
-            this.defaultSetting.idChat = idChat;
+            this.defaultSetting.id_chat = idChat;
             this.defaultSetting.name = name;
             this.db.models.UserModel.create(this.defaultSetting).then(res=>{
                 console.log(`${moment().format("DD.MM.YYYY HH:mm:SS")} User created ${name}`);

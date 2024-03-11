@@ -24,7 +24,7 @@ class BuildItemsModel extends CommonModel{
                 price: {
                     type: DataTypes.BIGINT,
                 },
-                prestigeLvl: {
+                prestige_lvl: {
                     type: DataTypes.INTEGER,
                 },
                 desc:{
@@ -34,18 +34,18 @@ class BuildItemsModel extends CommonModel{
                 cmd:{
                     type: DataTypes.STRING
                 },
-                objectName:{
+                object_name:{
                     type: DataTypes.STRING,
                     allowNull: false,
                 },
-                idCategory:{
+                id_category:{
                     type: DataTypes.INTEGER,
                     allowNull: false,
                 }
             },
             {
                 sequelize,
-                tableName: 'buildItems',
+                tableName: 'build_items',
                 timestamps: false
             }
         )

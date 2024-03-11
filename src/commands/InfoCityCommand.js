@@ -1,7 +1,7 @@
 import Command from "../../engine/commonClasses/Command.js";
 import {Helper} from "../functions/commonFunctions.js";
 import moment from "moment";
-import CityInfo from "../classes/cityInfo.js";
+import CityInfo from "../classes/CityInfo.js";
 import {IconEnums} from "../enums/iconEnums.js";
 
 export default class InfoCityCommand extends Command{
@@ -9,7 +9,7 @@ export default class InfoCityCommand extends Command{
         super("🏢Информация о городе", async (msg)=>{
             let user = await bot.db.models.UserModel.findOne(
                 {
-                    where: {idChat: msg.chat.id}
+                    where: {id_chat: msg.chat.id}
                 }
             )
 
@@ -25,13 +25,13 @@ export default class InfoCityCommand extends Command{
                 str += `Дата регистрации: ${date?.format("DD.MM.YYYY HH:mm:ss")}\n`;
 
                 // Вывод кулпенных зданий и полная информация о CityInfo
-                let cityInfo = new CityInfo(user.cityInfo);
+                let cityInfo = new CityInfo(user.city_info);
                 let data = cityInfo.getCityInfo();
                 let buildList = bot.services.ServiceBuildItems.items;
                 for(let key in data){
                     let count = data[key];
                     if(Number(count) > 0){
-                        let buildName = `${IconEnums[key]}${buildList.find(i => i.objectName == key).name}: ${count}`
+                        let buildName = `${IconEnums[key]}${buildList.find(i => i.object_name == key).name}: ${count}`
                         str += `${buildName}\n`
                     }
                 }

@@ -2,7 +2,7 @@ import CommonModel from "../../engine/commonClasses/CommonModel.js";
 import {DataTypes} from "sequelize";
 import BuildItemsModel from "./BuildItemsModel.js";
 
-class BuildCategoryModel extends CommonModel{
+class BuildEconomy extends CommonModel{
     static db = null;
 
     static init(sequelize) {
@@ -15,16 +15,25 @@ class BuildCategoryModel extends CommonModel{
                     primaryKey: true,
                     autoIncrement: true
                 },
-                name: {
-                    type: DataTypes.STRING
+                build_id:{
+                  type: DataTypes.INTEGER,
                 },
-                code_name: {
-                    type: DataTypes.STRING
+                income_rate: {
+                    type: DataTypes.FLOAT
+                },
+                income_rate_default: {
+                    type: DataTypes.FLOAT
+                },
+                income_rate_max: {
+                    type: DataTypes.FLOAT
+                },
+                income_rate_min: {
+                    type: DataTypes.FLOAT
                 }
             },
             {
                 sequelize,
-                tableName: 'build_category',
+                tableName: 'build_economy',
                 timestamps: false
             }
         )
@@ -33,4 +42,4 @@ class BuildCategoryModel extends CommonModel{
 
 // BuildCategoryModel.belongsTo(BuildItemsModel);
 
-export default BuildCategoryModel
+export default BuildEconomy

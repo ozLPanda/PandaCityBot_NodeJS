@@ -13,7 +13,7 @@ export default class ServiceBuildItems extends Service{
                     {
                         association: "Category",
                         on: {
-                            "id": sequelize.col("BuildItemsModel.idCategory")
+                            "id": sequelize.col("BuildItemsModel.id_category")
                         },
                     }
                 ],
