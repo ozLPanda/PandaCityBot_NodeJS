@@ -5,7 +5,7 @@ export default class StartCommand extends CommandAndAnswer {
     constructor(bot) {
         super("/start", async (msg) => {
             if (await this.ifUserExist(bot, msg)) {
-                await MainMenuKeyboard.showMainMenu(bot, msg);
+                await MainMenuKeyboard.showMenu(bot, msg);
             } else {
                 await bot.sendMessage(msg.chat.id, "Привет, я твой гид, я помогу тебе достичь высот! Придумай название своему городу");
                 bot.regMachineState(msg, this);
@@ -16,7 +16,7 @@ export default class StartCommand extends CommandAndAnswer {
                 await modelUser.defaultCreateUser(msg.chat.id, msg.text);
 
                 await bot.sendMessage(msg.chat.id, "Ваш город успешно создан!");
-                await MainMenuKeyboard.showMainMenu(bot, msg);
+                await MainMenuKeyboard.showMenu(bot, msg);
             } catch (ex) {
                 await bot.sendMessage(ex);
             }

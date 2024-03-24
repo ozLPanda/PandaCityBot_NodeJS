@@ -7,7 +7,7 @@ export default class BuildMenuBuyCommandCallback extends Command {
     constructor(bot) {
         super("menu.builds.buy", async (msg, ctx) => {
             let idBuild = ctx.data.split("/")[1];
-            let user = await bot.db.models.UserModel.findOne({where: {id_chat: msg.chat.id}})
+            let user =  await bot.getUser(msg);
 
             let build = bot.services.ServiceBuildItems.items.find(i => i.id == idBuild);
 

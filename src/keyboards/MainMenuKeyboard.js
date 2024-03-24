@@ -1,7 +1,7 @@
 import KeyboardButtons from "../../engine/commonClasses/KeyboardButtons.js";
 
 export const MainMenuKeyboard = {
-    async showMainMenu(bot, msg) {
+    async showMenu(bot, msg) {
         await bot.sendMessage(msg.chat.id, "Вот что я умею", new KeyboardButtons(
             [
                 {

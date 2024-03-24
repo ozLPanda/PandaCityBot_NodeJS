@@ -3,5 +3,5 @@ export const IconEnums = {
     middleHouse1: "🛖",
     largeHouse1: "🏠",
     apartmentBuild1: "🏢",
-
+    street_sweeper: "🧹",
 }

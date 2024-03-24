@@ -4,6 +4,7 @@ import BuildItemsModel from "../dataBaseModels/BuildItemsModel.js";
 import LogsModel from "../dataBaseModels/LogsModel.js";
 import BuildCategoryModel from "../dataBaseModels/BuildCategoryModel.js";
 import BuildEconomy from "../dataBaseModels/BuildEconomy.js";
+import JobsModel from "../dataBaseModels/JobsModel.js";
 
 export default class DataBase extends Sequelize {
 
@@ -12,7 +13,8 @@ export default class DataBase extends Sequelize {
         "BuildModel": BuildItemsModel,
         "LogsModel": LogsModel,
         "BuildCategoryModel": BuildCategoryModel,
-        "BuildEconomy": BuildEconomy
+        "BuildEconomy": BuildEconomy,
+        "JobsModel": JobsModel
     }
 
     constructor() {
