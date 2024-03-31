@@ -2,6 +2,8 @@ import Command from "../../engine/commonClasses/Command.js";
 import inlineButtons from "../../engine/commonClasses/InlineButtons.js";
 import {Op} from "sequelize";
 import {Helper} from "../functions/commonFunctions.js";
+import LoginMiddleware from "../mildware/LoginMiddleware.js";
+
 
 export default class BuildMenuCommand extends Command {
     constructor(bot) {
@@ -20,5 +22,6 @@ export default class BuildMenuCommand extends Command {
                 await bot.sendMessage(msg.chat.id, "Чтобы вы хотели построить?", new inlineButtons(arr_btns));
             }
         });
+        this.middlewares.push(new LoginMiddleware(bot));
     }
 }

@@ -1,5 +1,6 @@
 import CommandAndAnswer from "../../engine/commonClasses/CommandAndAnswer.js";
 import {MainMenuKeyboard} from "../keyboards/MainMenuKeyboard.js";
+import LoginMiddleware from "../mildware/LoginMiddleware.js";
 
 export default class StartCommand extends CommandAndAnswer {
     constructor(bot) {
@@ -13,14 +14,14 @@ export default class StartCommand extends CommandAndAnswer {
         }, async (msg) => {
             try {
                 let modelUser = bot.db.models.UserModel;
-                await modelUser.defaultCreateUser(msg.chat.id, msg.text);
+                await modelUser.defaultCreateUser(bot, msg.chat.id, msg.text);
 
                 await bot.sendMessage(msg.chat.id, "Ваш город успешно создан!");
                 await MainMenuKeyboard.showMenu(bot, msg);
             } catch (ex) {
-                await bot.sendMessage(ex);
+                console.error(ex);
             }
-        })
+        });
     }
 
     // Если пользователь существует

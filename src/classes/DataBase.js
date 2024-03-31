@@ -3,7 +3,7 @@ import UserModel from "../dataBaseModels/UserModel.js";
 import BuildItemsModel from "../dataBaseModels/BuildItemsModel.js";
 import LogsModel from "../dataBaseModels/LogsModel.js";
 import BuildCategoryModel from "../dataBaseModels/BuildCategoryModel.js";
-import BuildEconomy from "../dataBaseModels/BuildEconomy.js";
+import BuildEconomyModel from "../dataBaseModels/BuildEconomyModel.js";
 import JobsModel from "../dataBaseModels/JobsModel.js";
 
 export default class DataBase extends Sequelize {
@@ -13,11 +13,11 @@ export default class DataBase extends Sequelize {
         "BuildModel": BuildItemsModel,
         "LogsModel": LogsModel,
         "BuildCategoryModel": BuildCategoryModel,
-        "BuildEconomy": BuildEconomy,
+        "BuildEconomy": BuildEconomyModel,
         "JobsModel": JobsModel
     }
 
-    constructor() {
+    constructor(debug) {
         super(
             'f0220387_pandaCity',
             'f0220387_f0220387',
@@ -31,6 +31,7 @@ export default class DataBase extends Sequelize {
                     acquire: 30000, //время в миллисекундах, в течение которого будет осуществляться попытка установить соединение, прежде чем будет сгенерировано исключение (Default: 60000)
                     idle: 10000, //время простоя в миллисекундах, по истечении которого соединение покинет пул (Default: 1000)
                 },
+                logging: debug,
             });
         this.init();
     }

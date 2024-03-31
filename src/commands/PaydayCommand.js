@@ -1,8 +1,9 @@
 import Command from "../../engine/commonClasses/Command.js";
 import moment from "moment";
 import CityInfo from "../classes/CityInfo.js";
-import buildEconomy from "../dataBaseModels/BuildEconomy.js";
+import buildEconomy from "../dataBaseModels/BuildEconomyModel.js";
 import {Helper} from "../functions/commonFunctions.js";
+import LoginMiddleware from "../mildware/LoginMiddleware.js";
 
 export default class PaydayCommand extends Command{
     constructor(bot) {
@@ -65,5 +66,6 @@ export default class PaydayCommand extends Command{
                 }
             }
         });
+        this.middlewares.push(new LoginMiddleware(bot));
     }
 }

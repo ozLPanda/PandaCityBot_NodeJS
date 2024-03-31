@@ -1,6 +1,7 @@
 import Command from "../../engine/commonClasses/Command.js";
 import inlineButtons from "../../engine/commonClasses/InlineButtons.js";
 import {Helper} from "../functions/commonFunctions.js";
+import LoginMiddleware from "../mildware/LoginMiddleware.js";
 
 export default class JobsCommand extends Command {
     constructor(bot) {
@@ -20,5 +21,6 @@ export default class JobsCommand extends Command {
                 await bot.sendMessage(msg.chat.id, "Доступные работы:", new inlineButtons(arr_btns));
             }
         });
+        this.middlewares.push(new LoginMiddleware(bot));
     }
 }

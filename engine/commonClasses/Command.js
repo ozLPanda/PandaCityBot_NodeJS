@@ -4,6 +4,8 @@ export default class Command{
     cmd = null
     // Функция исполняющаяся при вызове команды
     callback = null
+    // Список middlewares
+    middlewares = [];
     constructor(cmd, callback) {
         this.cmd = cmd;
         this.callback = callback

@@ -26,7 +26,11 @@ export default class JobCommandCallback extends Command {
 
                 await bot.answerCallbackQuery(ctx.id).then(async () => {
                     await bot.sendMessage(msg.chat.id, event.text);
-                    await bot.sendMessage(msg.chat.id, `Вы заработали: ${Helper.math.formatPrice(payday)}💵`);
+                    if(payday >= 0){
+                        await bot.sendMessage(msg.chat.id, `Вы заработали: ${Helper.math.formatPrice(payday)}💵`);
+                    }else{
+                        await bot.sendMessage(msg.chat.id, `Вы потеряли: ${Helper.math.formatPrice(payday)}💵`);
+                    }
                 })
 
             }

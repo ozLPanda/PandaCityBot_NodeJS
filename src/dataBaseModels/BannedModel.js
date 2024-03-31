@@ -1,13 +1,12 @@
 import CommonModel from "../../engine/commonClasses/CommonModel.js";
 import {DataTypes} from "sequelize";
-import BuildItemsModel from "./BuildItemsModel.js";
 
-class BuildEconomy extends CommonModel{
+class BannedModel extends CommonModel{
     static db = null;
 
     static init(sequelize) {
         this.db = sequelize;
-        console.log("BuildCategoryModel loaded");
+        console.log("BannedModel loaded");
         super.init(
             {
                 id: {
@@ -15,20 +14,20 @@ class BuildEconomy extends CommonModel{
                     primaryKey: true,
                     autoIncrement: true
                 },
-                build_id:{
-                  type: DataTypes.INTEGER,
+                user_id:{
+                    type: DataTypes.BIGINT,
                 },
-                income_rate: {
-                    type: DataTypes.FLOAT
+                admin_id: {
+                    type: DataTypes.BIGINT
                 },
-                income_rate_default: {
-                    type: DataTypes.FLOAT
+                reason: {
+                    type: DataTypes.TEXT
                 },
-                income_rate_max: {
-                    type: DataTypes.FLOAT
+                ban_time: {
+                    type: DataTypes.BIGINT
                 },
-                income_rate_min: {
-                    type: DataTypes.FLOAT
+                created_at: {
+                    type: DataTypes.BIGINT
                 }
             },
             {
@@ -42,4 +41,4 @@ class BuildEconomy extends CommonModel{
 
 // BuildCategoryModel.belongsTo(BuildItemsModel);
 
-export default BuildEconomy
+export default BuildEconomyModel

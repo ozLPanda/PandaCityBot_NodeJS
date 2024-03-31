@@ -10,7 +10,8 @@ class UserModel extends CommonModel {
         money: 500,
         lvl: 1,
         adminLvl: 0,
-        cityInfo: JSON.stringify(new CityInfo())
+        cityInfo: JSON.stringify(new CityInfo()),
+        created_at: Number(new Date()) / 1000,
     }
 
     static init(sequelize) {
@@ -45,6 +46,9 @@ class UserModel extends CommonModel {
                 },
                 last_payday: {
                     type: DataTypes.INTEGER
+                },
+                deleted: {
+                    type: DataTypes.BOOLEAN
                 }
             },
             {
@@ -56,25 +60,33 @@ class UserModel extends CommonModel {
     }
 
     // Функция создания начального пользователя
-    static defaultCreateUser(idChat, name) {
+    static async defaultCreateUser(bot, idChat, name) {
+        let regx = /\p{Extended_Pictographic}/u;
+        if (regx.test(name)) {
+            await bot.sendMessage(idChat, ErrorEnum.EmojiInName);
+            throw new Error(ErrorEnum.EmojiInName);
+        }
         let checkName = this.db.models.UserModel.findAll({
             where: {
                 name: name
             }
         });
-        checkName.then(res => {
+        checkName.then(async res => {
             if (res != null && res?.length > 0) {
+                await bot.sendMessage(idChat, ErrorEnum.NameIsOccupied);
                 throw new Error(ErrorEnum.NameIsOccupied);
             }
             if (name.length < 5 || name.length > 20) {
+                await bot.sendMessage(idChat, ErrorEnum.IncorrectName);
                 throw new Error(ErrorEnum.IncorrectName);
             }
             this.defaultSetting.id_chat = idChat;
             this.defaultSetting.name = name;
-            this.db.models.UserModel.create(this.defaultSetting).then(res=>{
+            this.db.models.UserModel.create(this.defaultSetting).then(res => {
                 console.log(`${moment().format("DD.MM.YYYY HH:mm:SS")} User created ${name}`);
             });
         }).catch(ex => {
+            console.error(ex);
             throw new Error("Произошла ошибка при создании пользователя");
         })
     }
