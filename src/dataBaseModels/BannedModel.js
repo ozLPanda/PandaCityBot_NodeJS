@@ -41,4 +41,4 @@ class BannedModel extends CommonModel{
 
 // BuildCategoryModel.belongsTo(BuildItemsModel);
 
-export default BuildEconomyModel
+export default BannedModel

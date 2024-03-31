@@ -24,3 +24,10 @@ export async function removeBuild({body}){
         }
     })
 }
+
+export async function updateBuild({body}){
+    let build = await findBuildById(body.id);
+    if(build != null){
+        // build.
+    }
+}

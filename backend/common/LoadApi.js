@@ -1,10 +1,12 @@
 import {getUser, getUsers, removeUser, saveUser} from "../api/User.js";
-import {getBuild, getBuilds, removeBuild} from "../api/Build.js";
+import {getBuild, getBuilds, removeBuild, updateBuild} from "../api/Build.js";
 
 export function loadApi(){
     return {
         test: [],
-        admin: [saveUser],
+        admin: [
+            saveUser
+        ],
         public: [
             getUsers,
             getUser,
@@ -12,7 +14,8 @@ export function loadApi(){
             getBuild
         ],
         owner: [
-            removeBuild
+            removeBuild,
+            updateBuild
         ]
     }
 }
