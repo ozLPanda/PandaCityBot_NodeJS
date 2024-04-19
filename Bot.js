@@ -3,8 +3,6 @@ import StartCommand from "./src/commands/StartCommand.js";
 import DataBase from "./src/classes/DataBase.js";
 import BuildMenuCommand from "./src/commands/BuildMenuCommand.js";
 import BuildMenuBuyCommandCallback from "./src/commandsCallback/BuildMenuBuyCommandCallback.js";
-import BuildItemsModel from "./src/dataBaseModels/BuildItemsModel.js";
-import BuildCategoryModel from "./src/dataBaseModels/BuildCategoryModel.js";
 import InfoCityCommand from "./src/commands/InfoCityCommand.js";
 import addServices from "./src/functions/addServices.js";
 import PaydayCommand from "./src/commands/PaydayCommand.js";
@@ -21,7 +19,8 @@ let debug_mode = false;
 
 let db = new DataBase(debug_mode);
 
-BuildItemsModel.hasOne(BuildCategoryModel, {as: "Category", foreignKey: "id"});
+
+
 
 await db.authenticate().then(async res=>{
     console.log('DataBase connected');

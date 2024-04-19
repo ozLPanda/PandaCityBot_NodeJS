@@ -10,10 +10,10 @@ export default class DataBase extends Sequelize {
 
     models = {
         "UserModel": UserModel,
+        "BuildEconomy": BuildEconomyModel,
+        "BuildCategoryModel": BuildCategoryModel,
         "BuildModel": BuildItemsModel,
         "LogsModel": LogsModel,
-        "BuildCategoryModel": BuildCategoryModel,
-        "BuildEconomy": BuildEconomyModel,
         "JobsModel": JobsModel
     }
 
@@ -34,6 +34,10 @@ export default class DataBase extends Sequelize {
                 logging: debug,
             });
         this.init();
+
+
+        LogsModel.belongsTo(UserModel, {as: "UserInfoLog", foreignKey: "id_user"});
+        BuildItemsModel.belongsTo(BuildCategoryModel, {as: "Category", foreignKey: "id_category"});
     }
 
     init() {

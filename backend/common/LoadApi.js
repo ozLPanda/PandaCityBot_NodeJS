@@ -1,5 +1,7 @@
 import {getUser, getUsers, removeUser, saveUser} from "../api/User.js";
 import {getBuild, getBuilds, removeBuild, updateBuild} from "../api/Build.js";
+import {getBuildCategories, getBuildCategory, removeBuildCategory, updateBuildCategory} from "../api/BuildCategory.js";
+import {getLogs} from "../api/Log.js";
 
 export function loadApi(){
     return {
@@ -15,7 +17,12 @@ export function loadApi(){
         ],
         owner: [
             removeBuild,
-            updateBuild
+            updateBuild,
+            getBuildCategories,
+            getBuildCategory,
+            updateBuildCategory,
+            removeBuildCategory,
+            getLogs
         ]
     }
 }
