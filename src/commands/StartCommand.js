@@ -1,6 +1,6 @@
 import CommandAndAnswer from "../../engine/commonClasses/CommandAndAnswer.js";
 import {MainMenuKeyboard} from "../keyboards/MainMenuKeyboard.js";
-import LoginMiddleware from "../mildware/LoginMiddleware.js";
+import LoginMiddleware from "../middleware/LoginMiddleware.js";
 
 export default class StartCommand extends CommandAndAnswer {
     constructor(bot) {

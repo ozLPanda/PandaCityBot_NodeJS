@@ -1,6 +1,13 @@
 import DataBaseModule from "../modules/DatabaseState.js";
 import {EnumsResult} from "../common/Enums.js";
 import BannedModel from "../../src/dataBaseModels/BannedModel.js";
+import {ApiController, ApiRequest} from "../common/ApiBase.js";
+
+
+export const UserController = new ApiController("User",  [
+
+], []);
+
 
 async function findUserById(id) {
     return await DataBaseModule.connection.models.UserModel.findOne({

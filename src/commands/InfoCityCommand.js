@@ -3,7 +3,7 @@ import {Helper} from "../functions/commonFunctions.js";
 import moment from "moment";
 import CityInfo from "../classes/CityInfo.js";
 import {IconEnums} from "../enums/iconEnums.js";
-import LoginMiddleware from "../mildware/LoginMiddleware.js";
+import LoginMiddleware from "../middleware/LoginMiddleware.js";
 
 export default class InfoCityCommand extends Command{
     constructor(bot) {

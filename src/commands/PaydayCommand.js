@@ -3,7 +3,7 @@ import moment from "moment";
 import CityInfo from "../classes/CityInfo.js";
 import buildEconomy from "../dataBaseModels/BuildEconomyModel.js";
 import {Helper} from "../functions/commonFunctions.js";
-import LoginMiddleware from "../mildware/LoginMiddleware.js";
+import LoginMiddleware from "../middleware/LoginMiddleware.js";
 
 export default class PaydayCommand extends Command{
     constructor(bot) {
