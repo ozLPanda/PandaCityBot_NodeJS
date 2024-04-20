@@ -12,12 +12,8 @@ export default class ServiceBuildItems extends Service{
                 include: [
                     {
                         association: "Category",
-                        on: {
-                            "id": sequelize.col("BuildItemsModel.id_category")
-                        },
                     }
-                ],
-                group: "id",
+                ]
             });
             this.items = this.items.map(i => {
                 return i.dataValues

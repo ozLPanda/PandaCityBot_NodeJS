@@ -19,9 +19,6 @@ let debug_mode = false;
 
 let db = new DataBase(debug_mode);
 
-
-
-
 await db.authenticate().then(async res=>{
     console.log('DataBase connected');
     bot.db = db;

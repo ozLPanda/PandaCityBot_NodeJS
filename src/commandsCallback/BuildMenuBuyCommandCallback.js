@@ -20,7 +20,7 @@ export default class BuildMenuBuyCommandCallback extends Command {
                     await bot.sendMessage(msg.chat.id, `Вы успешно купили ${build.name}`);
 
                     user.money -= build.price
-                    user.cityInfo = cityInfo.getJSON();
+                    user.city_info = cityInfo.getJSON();
 
                     await user.save();
 
