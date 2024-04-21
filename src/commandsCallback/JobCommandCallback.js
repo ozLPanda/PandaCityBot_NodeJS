@@ -21,18 +21,24 @@ export default class JobCommandCallback extends Command {
                 let payday = Number(job.dataValues.income_rate) * event.payday;
 
                 user.money += payday;
+
+                await Helper.user.setExp(bot, msg, user, job.exp);
+
                 if(user.money < 0) user.money = 0;
+
                 await user.save();
 
-                await bot.answerCallbackQuery(ctx.id).then(async () => {
-                    await bot.sendMessage(msg.chat.id, event.text);
-                    if(payday >= 0){
-                        await bot.sendMessage(msg.chat.id, `Вы заработали: ${Helper.math.formatPrice(payday)}💵`);
-                    }else{
-                        await bot.sendMessage(msg.chat.id, `Вы потеряли: ${Helper.math.formatPrice(payday)}💵`);
-                    }
-                })
+                // await bot.sendMessage(msg.chat.id, event.text);
+                let _txt = ``;
+                if(payday >= 0){
+                    // await bot.sendMessage(msg.chat.id, `Вы заработали: ${Helper.math.formatPrice(payday)}💵`);
+                    _txt = `Вы заработали: ${Helper.math.formatPrice(payday)}💵`;
+                }else{
+                    _txt = `Вы потеряли: ${Helper.math.formatPrice(payday)}💵`;
+                    // await bot.sendMessage(msg.chat.id, `Вы потеряли: ${Helper.math.formatPrice(payday)}💵`);
+                }
 
+                await bot.answerCallbackQuery(ctx.id, {text: _txt});
             }
         });
     }

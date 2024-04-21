@@ -38,6 +38,7 @@ bot.regCommand(new PaydayCommand(bot));
 bot.regCommand(new JobsCommand(bot));
 bot.regCommand(new RatingCommand(bot));
 
+
 // Список команд под callback
 bot.regCallbackCommand(new BuildMenuBuyCommandCallback(bot));
 bot.regCallbackCommand(new JobCommandCallback(bot));
@@ -48,6 +49,7 @@ bot.setMyCommands([
         description: "Запустить бота"
     },
 ])
+
 
 bot.on();
 

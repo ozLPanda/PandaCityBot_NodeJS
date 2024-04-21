@@ -19,7 +19,10 @@ export default class Bot extends TelegramBot {
         super(token, {
             polling: {
                 interval: 300,
-                autoStart: true
+                autoStart: true,
+                params: {
+                    timeout: 10
+                }
             }
         });
         console.log("Bot created");
@@ -30,34 +33,43 @@ export default class Bot extends TelegramBot {
 
     async on() {
         super.on("text", async (msg) => {
-            // Получаем состояния пользователя
-            let machine_resp = this.checkMachineState(msg);
-            // Проверяем есть ли на нём какое-то состояние
-            if (machine_resp?.status) {
-                // Вызываем команду, которая ожидает пользователя
-                machine_resp.machineState?.command?.onResponse(msg);
-            } else {
-                // Ищем что хочет использовать пользователь
-                if (await this.checkCommand(msg) == true) {
-                    return
+            try {
+                if (msg.chat.type == "group") return;
+                // Получаем состояния пользователя
+                let machine_resp = this.checkMachineState(msg);
+                // Проверяем есть ли на нём какое-то состояние
+                if (machine_resp?.status) {
+                    // Вызываем команду, которая ожидает пользователя
+                    machine_resp.machineState?.command?.onResponse(msg);
                 } else {
-                    await this.sendMessage(msg.chat.id, ErrorEnum.UnknownCommand);
+                    // Ищем что хочет использовать пользователь
+                    if (await this.checkCommand(msg) == true) {
+                        return
+                    } else {
+                        await this.sendMessage(msg.chat.id, ErrorEnum.UnknownCommand);
+                    }
                 }
+            }catch (ex){
+                await this.sendMessage(this.admin_chat, `Произошла ошибка Bot -> on()\n${ex.message}`);
             }
         })
         super.on("callback_query", async (ctx) => {
-            // Если команда составная, делим её на 2 части
-            let search_val = ctx.data;
-            if (ctx.data.indexOf("/") != -1) {
-                search_val = ctx.data.split("/")[0];
-            }
-            let cmd = this._commands_callback_query.find(el => el.cmd == search_val);
-            if (cmd != null)
-                try {
-                    await cmd?.onCallback(ctx.message, ctx);
-                } catch (ex) {
-                    console.error(ex);
+            try {
+                // Если команда составная, делим её на 2 части
+                let search_val = ctx.data;
+                if (ctx.data.indexOf("/") != -1) {
+                    search_val = ctx.data.split("/")[0];
                 }
+                let cmd = this._commands_callback_query.find(el => el.cmd == search_val);
+                if (cmd != null)
+                    try {
+                        await cmd?.onCallback(ctx.message, ctx);
+                    } catch (ex) {
+                        console.error(ex);
+                    }
+            }catch (ex){
+                await this.sendMessage(this.admin_chat, `Произошла ошибка Bot -> on_callback()\n${ex.message}`);
+            }
         })
     }
 

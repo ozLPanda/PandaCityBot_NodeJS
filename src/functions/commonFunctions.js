@@ -13,7 +13,7 @@ export const Helper = {
         }
     },
     user:{
-        async setExp(bot, user, exp){
+        async setExp(bot, msg, user, exp){
             let lvlUp = false;
             let levelObject = await bot.db.models.UserLevelsModel.findOne({where: {lvl: user.lvl}});
             user.exp += exp;
@@ -23,6 +23,10 @@ export const Helper = {
                 user.exp = user.exp - levelObject.exp_need;
                 levelObject = await bot.db.models.UserLevelsModel.findOne({where: {lvl: user.lvl}});
             }
+
+            if(lvlUp)
+                await bot.sendMessage(msg.chat.id, `Ваш уровень повышен, теперь у вас ${user.lvl}!`);
+
             return lvlUp;
         }
     }

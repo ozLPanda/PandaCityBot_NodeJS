@@ -2,14 +2,20 @@ import Command from "../../engine/commonClasses/Command.js";
 import inlineButtons from "../../engine/commonClasses/InlineButtons.js";
 import {Helper} from "../functions/commonFunctions.js";
 import LoginMiddleware from "../middleware/LoginMiddleware.js";
+import {Op} from "sequelize";
 
 export default class JobsCommand extends Command {
     constructor(bot) {
         super("💼Работы", async (msg) => {
-            let _user = await bot.getUser(msg);
-            if (_user != null) {
+            let user = await bot.getUser(msg);
+            if (user != null) {
 
-                let job_list = await bot.db.models.JobsModel.findAll();
+                let job_list = await bot.db.models.JobsModel.findAll(
+                    {
+                        where: {
+                            lvl: {[Op.lte]: user.lvl}
+                        }
+                    });
 
                 let arr_btns = job_list.map(i => {
                     return {

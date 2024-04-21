@@ -17,6 +17,12 @@ class JobsModel extends CommonModel{
                 name: {
                     type: DataTypes.TEXT
                 },
+                lvl: {
+                    type: DataTypes.INTEGER
+                },
+                exp: {
+                    type: DataTypes.INTEGER
+                },
                 income_rate: {
                     type: DataTypes.FLOAT
                 },

@@ -41,11 +41,11 @@ export default class PaydayCommand extends Command{
                     }
 
                     payday = Math.round(payday);
-
                     let current_date = Math.round(Number(new Date()) / 1000);
                     let payday_format = Helper.math.formatPrice(payday);
+                    let lvlCoef = 1 + (user.lvl * 0.1);
 
-                    user.money += payday;
+                    user.money += Math.round(payday * lvlCoef);
                     user.last_payday = current_date;
                     await user.save();
 
