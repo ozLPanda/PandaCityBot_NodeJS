@@ -49,6 +49,9 @@ class UserModel extends CommonModel {
                 },
                 deleted: {
                     type: DataTypes.BOOLEAN
+                },
+                exp: {
+                    type: DataTypes.INTEGER
                 }
             },
             {

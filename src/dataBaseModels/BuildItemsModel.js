@@ -41,6 +41,10 @@ class BuildItemsModel extends CommonModel{
                 id_category:{
                     type: DataTypes.INTEGER,
                     allowNull: false,
+                },
+                exp:{
+                    type: DataTypes.INTEGER,
+                    allowNull: false,
                 }
             },
             {

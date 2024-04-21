@@ -1,7 +1,6 @@
 import Command from "../../engine/commonClasses/Command.js";
 import moment from "moment";
 import CityInfo from "../classes/CityInfo.js";
-import buildEconomy from "../dataBaseModels/BuildEconomyModel.js";
 import {Helper} from "../functions/commonFunctions.js";
 import LoginMiddleware from "../middleware/LoginMiddleware.js";
 
@@ -11,12 +10,10 @@ export default class PaydayCommand extends Command{
             let user = await bot.getUser(msg);
             if(user != null){
                 let utc = user.last_payday;
+                let curUTC = Math.round(+moment() / 1000);
                 if(utc == null) utc = user.created_at;
-
-                let sub = Number(Math.round(+moment() / 1000)) - utc;
-
-                if(sub > 300_000){
-
+                let sub = curUTC - utc;
+                if(sub > 300){
                     // Что есть у игрока
                     let cityData = new CityInfo(user.city_info);
                     let infoList = cityData.getCityInfo();

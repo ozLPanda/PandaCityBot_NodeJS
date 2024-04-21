@@ -8,9 +8,12 @@ import LoginMiddleware from "../middleware/LoginMiddleware.js";
 export default class BuildMenuCommand extends Command {
     constructor(bot) {
         super("🏗Построить здания", async (msg) => {
-            let _user = await bot.db.models.UserModel.findOne({where: {id_chat: msg.chat.id}});
-            if (_user != null) {
-                let buildList = bot.services.ServiceBuildItems.items;
+            let user = await bot.db.models.UserModel.findOne({where: {id_chat: msg.chat.id}});
+            if (user != null) {
+                let buildList = bot.services.ServiceBuildItems.items.filter(i=>{
+                    if(i.lvl <= user.lvl) return true
+                    else return false
+                });
 
                 let arr_btns = buildList.map(el=>{
                     return {

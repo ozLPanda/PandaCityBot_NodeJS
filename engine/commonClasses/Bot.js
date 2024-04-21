@@ -13,8 +13,9 @@ export default class Bot extends TelegramBot {
     services = {} // Сервисы
     timeServicesUpdate = 60_000;
     intervalServices = null;
+    admin_chat = null;
 
-    constructor(token) {
+    constructor(token, admin_chat) {
         super(token, {
             polling: {
                 interval: 300,
@@ -22,6 +23,7 @@ export default class Bot extends TelegramBot {
             }
         });
         console.log("Bot created");
+        this.admin_chat = admin_chat;
 
         this.startServices().then();
     }
@@ -53,7 +55,7 @@ export default class Bot extends TelegramBot {
             if (cmd != null)
                 try {
                     await cmd?.onCallback(ctx.message, ctx);
-                }catch(ex){
+                } catch (ex) {
                     console.error(ex);
                 }
         })
@@ -78,7 +80,7 @@ export default class Bot extends TelegramBot {
             try {
                 if (command.middlewares.length > 0) {
                     let results = [];
-                    for(let item of command.middlewares){
+                    for (let item of command.middlewares) {
                         let res = await item.check(msg);
                         results.push(res);
                     }
@@ -139,6 +141,17 @@ export default class Bot extends TelegramBot {
 
     //Helpers method
     async getUser(msg) {
-        return await this.db.models.UserModel.findOne({where: {id_chat: msg.chat.id}});
+        return await this.db.models.UserModel.findOne(
+            {
+                where: {
+                    id_chat: msg.chat.id
+                },
+                include:[
+                    {
+                        association: "Levels"
+                    }
+                ]
+            }
+        );
     }
 }

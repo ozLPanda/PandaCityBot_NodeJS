@@ -5,6 +5,7 @@ import LogsModel from "../dataBaseModels/LogsModel.js";
 import BuildCategoryModel from "../dataBaseModels/BuildCategoryModel.js";
 import BuildEconomyModel from "../dataBaseModels/BuildEconomyModel.js";
 import JobsModel from "../dataBaseModels/JobsModel.js";
+import UserLevelsModel from "../dataBaseModels/UserLevelsModel.js";
 
 export default class DataBase extends Sequelize {
 
@@ -14,7 +15,8 @@ export default class DataBase extends Sequelize {
         "BuildCategoryModel": BuildCategoryModel,
         "BuildModel": BuildItemsModel,
         "LogsModel": LogsModel,
-        "JobsModel": JobsModel
+        "JobsModel": JobsModel,
+        "UserLevelsModel": UserLevelsModel,
     }
 
     constructor(debug) {
@@ -35,9 +37,9 @@ export default class DataBase extends Sequelize {
             });
         this.init();
 
-
         LogsModel.belongsTo(UserModel, {as: "UserInfoLog", foreignKey: "id_user"});
         BuildItemsModel.belongsTo(BuildCategoryModel, {as: "Category", foreignKey: "id_category"});
+        UserModel.hasOne(UserLevelsModel, {as: "Levels", sourceKey: "lvl", foreignKey: "lvl"});
     }
 
     init() {

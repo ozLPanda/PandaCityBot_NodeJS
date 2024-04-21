@@ -8,11 +8,7 @@ import LoginMiddleware from "../middleware/LoginMiddleware.js";
 export default class InfoCityCommand extends Command{
     constructor(bot) {
         super("🏢Информация о городе", async (msg)=>{
-            let user = await bot.db.models.UserModel.findOne(
-                {
-                    where: {id_chat: msg.chat.id}
-                }
-            )
+            let user = await bot.getUser(msg);
 
             if(user != null){
 
@@ -21,6 +17,8 @@ export default class InfoCityCommand extends Command{
                 let str = "";
                 str += "Информация о вашем городе\n";
                 str += `Ваше имя: ${user.name}\n`;
+                str += `Ваш уровень: (${user.lvl}) ${user.Levels.name}\n`
+                str += `Ваш опыт: ${user.exp}/${user.Levels.exp_need}\n`
                 str += `Казна города: ${Helper.math.formatPrice(user.money)}💵\n`;
                 str += `Ваша прибыль каждые 5 минут: - \n`;
                 str += `Дата регистрации: ${date?.format("DD.MM.YYYY HH:mm:ss")}\n`;
