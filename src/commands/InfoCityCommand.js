@@ -30,7 +30,7 @@ export default class InfoCityCommand extends Command{
                 for(let key in data){
                     let count = data[key];
                     if(Number(count) > 0){
-                        let buildName = `${IconEnums[key]}${buildList.find(i => i.object_name == key).name}: ${count}`
+                        let buildName = `${IconEnums[key] != undefined ? IconEnums[key] : ""}${buildList.find(i => i.object_name == key).name}: ${count}`
                         str += `${buildName}\n`
                     }
                 }

@@ -8,15 +8,22 @@ export default class CityInfo {
         middleHouse1: 0,
         largeHouse1: 0,
         apartmentBuild1: 0,
+        modernQuarter: 0,
+        closedEliteVillage: 0
+
     }
 
     business = {
         farmingLevel1: 0,
         farmingLevel2: 0,
+        farmingLevel3: 0,
+        shoppingCentre: 0,
+        franchise: 0
     }
 
     buildsFactory = {
         smallFactory1: 0,
+        dairyPlant: 0
     }
 
     constructor(json) {
@@ -35,7 +42,9 @@ export default class CityInfo {
         let resp = {}
         for(let keyCategory of this.cityInfoKeys){
             for(let key in this[keyCategory]){
-                resp[key] = this.buildsHouse[key];
+                if(this[keyCategory][key] != null){
+                    resp[key] = this[keyCategory][key];
+                }
             }
         }
         return resp;
