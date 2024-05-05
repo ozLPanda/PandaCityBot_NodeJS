@@ -10,7 +10,6 @@ export default class CityInfo {
         apartmentBuild1: 0,
         modernQuarter: 0,
         closedEliteVillage: 0
-
     }
 
     business = {
@@ -30,12 +29,30 @@ export default class CityInfo {
         if(json != null) {
             this._json = json;
             let obj = JSON.parse(json);
-            Object.assign(this, obj);
+
+            for(let key in obj){
+
+                if(key == "cityInfoKeys"
+                || key == "_json") continue;
+
+                if(this[key] !== null && this[key] !== undefined){
+                    for(let keyField in obj[key]){
+                        if(this[key][keyField] !== null && this[key][keyField] !== undefined){
+                            this[key][keyField] = obj[key][keyField];
+                        }
+                    }
+                }
+            }
         }
     }
 
     getJSON(){
-        return JSON.stringify(this);
+        let obj = JSON.parse(JSON.stringify(this));
+
+        delete obj._json;
+        delete obj.cityInfoKeys;
+
+        return JSON.stringify(obj);
     }
 
     getCityInfo(){
