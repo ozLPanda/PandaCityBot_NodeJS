@@ -20,6 +20,7 @@ export default class InfoCityCommand extends Command{
                 str += `Ваш уровень: (${user.lvl}) ${user.Levels.name}\n`
                 str += `Ваш опыт: ${Helper.math.formatPrice(user.exp)}/${Helper.math.formatPrice(user.Levels.exp_need)}\n`
                 str += `Казна города: ${Helper.math.formatPrice(user.money)}💵\n`;
+                str += `Кол-во престижа: ${Helper.math.formatPrice(user.prestige)}🌟\n`;
                 str += `Ваша прибыль каждые 5 минут: ${Helper.math.formatPrice(Helper.user.getPaydayFiveMinutes(user, bot))} \n`;
                 str += `Дата регистрации: ${date?.format("DD.MM.YYYY HH:mm:ss")}\n`;
 

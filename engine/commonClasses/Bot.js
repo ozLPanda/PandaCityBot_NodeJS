@@ -165,17 +165,19 @@ export default class Bot extends TelegramBot {
                 ]
             }
         );
+        let keysBigInt = ["money", 'prestige'];
         user.money = BigInt(user.money);
+        user.prestige = BigInt(user.prestige);
         user = new Proxy(user, {
             get(target, prop){
-                if(prop == 'money'){
+                if(keysBigInt.includes(prop)){
                     return Number(target[prop].toString());
                 }else{
                     return target[prop];
                 }
             },
             set(target,prop, val){
-                if(prop == 'money'){
+                if(keysBigInt.includes(prop)){
                     target[prop] = BigInt(val);
                 }else{
                     target[prop] = val;

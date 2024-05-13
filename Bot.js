@@ -15,7 +15,7 @@ let start_time = new Date();
 console.log("Bot loading...");
 
 let API_KEY_BOT = "6249415706:AAHb3aqqUw3IT_FXvqaPt1Qy6YeRgKhEapA";
-let admin_chat =  -4101189130;
+let admin_chat = -4101189130;
 let bot = new Bot(API_KEY_BOT, admin_chat);
 
 // bot.setTimeUpdateServices(3000);
@@ -24,10 +24,10 @@ let debug_mode = false;
 
 let db = new DataBase(debug_mode);
 
-await db.authenticate().then(async res=>{
+await db.authenticate().then(async res => {
     console.log('DataBase connected');
     bot.db = db;
-}).catch(ex=>{
+}).catch(ex => {
     console.error(ex);
 });
 
@@ -54,7 +54,6 @@ bot.setMyCommands([
         description: "Запустить бота"
     },
 ])
-
 
 bot.on();
 

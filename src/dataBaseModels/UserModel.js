@@ -30,10 +30,10 @@ class UserModel extends CommonModel {
                     type: DataTypes.JSON
                 },
                 admin_lvl: {
-                    type: DataTypes.TINYINT,
+                    type: DataTypes.TINYINT
                 },
                 money: {
-                    type: DataTypes.STRING,
+                    type: DataTypes.STRING
                 },
                 lvl: {
                     type: DataTypes.INTEGER
@@ -52,6 +52,9 @@ class UserModel extends CommonModel {
                 },
                 exp: {
                     type: DataTypes.INTEGER
+                },
+                prestige:{
+                    type: DataTypes.STRING
                 }
             },
             {

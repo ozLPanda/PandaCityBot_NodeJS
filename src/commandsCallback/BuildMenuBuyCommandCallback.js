@@ -21,6 +21,7 @@ export default class BuildMenuBuyCommandCallback extends Command {
                         await bot.answerCallbackQuery(ctx.id);
 
                         user.money -= build.price;
+                        user.prestige += build.prestige_lvl;
                         user.city_info = cityInfo.getJSON();
 
                         let expUp = await Helper.user.setExp(bot, msg, user, build.exp);
