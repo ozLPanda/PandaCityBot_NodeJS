@@ -42,6 +42,10 @@ class BuildItemsModel extends CommonModel{
                     type: DataTypes.INTEGER,
                     allowNull: false,
                 },
+                payday_coef:{
+                    type: DataTypes.INTEGER,
+                    allowNull: false,
+                },
                 exp:{
                     type: DataTypes.INTEGER,
                     allowNull: false,

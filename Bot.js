@@ -9,6 +9,7 @@ import PaydayCommand from "./src/commands/PaydayCommand.js";
 import JobsCommand from "./src/commands/JobsCommand.js";
 import JobCommandCallback from "./src/commandsCallback/JobCommandCallback.js";
 import {RatingCommand} from "./src/commands/RatingCommand.js";
+import AdminCheckPaydayBuildItems from "./src/commands/AdminCheckPaydayBuildItems.js";
 
 let start_time = new Date();
 console.log("Bot loading...");
@@ -16,6 +17,9 @@ console.log("Bot loading...");
 let API_KEY_BOT = "6249415706:AAHb3aqqUw3IT_FXvqaPt1Qy6YeRgKhEapA";
 let admin_chat =  -4101189130;
 let bot = new Bot(API_KEY_BOT, admin_chat);
+
+// bot.setTimeUpdateServices(3000);
+
 let debug_mode = false;
 
 let db = new DataBase(debug_mode);
@@ -37,6 +41,7 @@ bot.regCommand(new InfoCityCommand(bot));
 bot.regCommand(new PaydayCommand(bot));
 bot.regCommand(new JobsCommand(bot));
 bot.regCommand(new RatingCommand(bot));
+bot.regCommand(new AdminCheckPaydayBuildItems(bot));
 
 
 // Список команд под callback

@@ -24,7 +24,7 @@ export default class PaydayCommand extends Command{
                     let payday = 0;
 
                     let coef = 0.0005;
-                    sub =  sub / 10000;
+                    // sub =  sub / 10000;
 
                     for(let buildKey in infoList){
                         let count = infoList[buildKey];
@@ -42,8 +42,8 @@ export default class PaydayCommand extends Command{
 
                     payday = Math.round(payday);
                     let current_date = Math.round(Number(new Date()) / 1000);
-                    let payday_format = Helper.math.formatPrice(payday);
                     let lvlCoef = 1 + (user.lvl * 0.1);
+                    let payday_format = Helper.math.formatPrice(payday * lvlCoef);
 
                     user.money += Math.round(payday * lvlCoef);
                     user.last_payday = current_date;

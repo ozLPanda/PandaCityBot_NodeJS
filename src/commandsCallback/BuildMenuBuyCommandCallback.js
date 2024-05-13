@@ -20,7 +20,7 @@ export default class BuildMenuBuyCommandCallback extends Command {
 
                         await bot.answerCallbackQuery(ctx.id);
 
-                        user.money -= build.price
+                        user.money -= build.price;
                         user.city_info = cityInfo.getJSON();
 
                         let expUp = await Helper.user.setExp(bot, msg, user, build.exp);
@@ -29,7 +29,7 @@ export default class BuildMenuBuyCommandCallback extends Command {
                         await bot.sendMessage(msg.chat.id, `Вы успешно купили ${build.name}`);
 
                     }catch (ex){
-                        await bot.answerCallbackQuery(ctx.id);
+                        // await bot.answerCallbackQuery(ctx.id);
                         await bot.sendMessage(msg.chat.id, `Произошла ошибка, сообщение уже отправлено администраторам`);
                         let err_msg = "При покупке у пользователя\n";
                         err_msg += `ID: ${user.id_chat}\n`;

@@ -33,7 +33,7 @@ class UserModel extends CommonModel {
                     type: DataTypes.TINYINT,
                 },
                 money: {
-                    type: DataTypes.BIGINT,
+                    type: DataTypes.STRING,
                 },
                 lvl: {
                     type: DataTypes.INTEGER

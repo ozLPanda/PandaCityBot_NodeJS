@@ -49,7 +49,7 @@ export default class Bot extends TelegramBot {
                         await this.sendMessage(msg.chat.id, ErrorEnum.UnknownCommand);
                     }
                 }
-            }catch (ex){
+            } catch (ex) {
                 await this.sendMessage(this.admin_chat, `Произошла ошибка Bot -> on()\n${ex.message}`);
             }
         })
@@ -67,7 +67,7 @@ export default class Bot extends TelegramBot {
                     } catch (ex) {
                         console.error(ex);
                     }
-            }catch (ex){
+            } catch (ex) {
                 await this.sendMessage(this.admin_chat, `Произошла ошибка Bot -> on_callback()\n${ex.message}`);
             }
         })
@@ -153,17 +153,36 @@ export default class Bot extends TelegramBot {
 
     //Helpers method
     async getUser(msg) {
-        return await this.db.models.UserModel.findOne(
+        let user = await this.db.models.UserModel.findOne(
             {
                 where: {
                     id_chat: msg.chat.id
                 },
-                include:[
+                include: [
                     {
                         association: "Levels"
                     }
                 ]
             }
         );
+        user.money = BigInt(user.money);
+        user = new Proxy(user, {
+            get(target, prop){
+                if(prop == 'money'){
+                    return Number(target[prop].toString());
+                }else{
+                    return target[prop];
+                }
+            },
+            set(target,prop, val){
+                if(prop == 'money'){
+                    target[prop] = BigInt(val);
+                }else{
+                    target[prop] = val;
+                }
+                return true;
+            }
+        });
+        return user;
     }
 }
