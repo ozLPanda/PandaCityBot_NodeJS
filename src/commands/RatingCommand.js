@@ -10,29 +10,30 @@ const ratingIcon = {
 
 export class RatingCommand extends Command {
     constructor(bot) {
-        super("🥇Рейтинг", async (msg)=>{
+        super("🥇Рейтинг", async (msg) => {
             let _user = await bot.getUser(msg);
             if (_user != null) {
                 let ratingList = await bot.db.models.UserModel.findAll({
-                    where:{
+                    where: {
                         admin_lvl: {[Op.lt]: 1}
                     },
                     order: [
-                        ['money', 'DESC'],
-                        ['lvl', 'DESC']
+                        ['prestige', 'DESC']
+                        // ['money', 'ASC'],
+                        // ['lvl', 'DESC']
                     ],
-                    attributes: ['id_chat', 'name', 'money', 'lvl'],
+                    attributes: ['id_chat', 'name'/*,'money', 'lvl'*/, 'prestige'],
                     limit: 10
                 });
-                if(ratingList != null){
+                if (ratingList != null) {
                     let indexRating = 1;
                     let text = "Топ игроков: \n";
-                    for(let user of ratingList){
+                    for (let user of ratingList) {
                         let icon = ratingIcon[indexRating];
-                        if(icon != undefined)
-                            text += `${icon} ${user.name} (${Helper.math.formatPrice(user.money)}💵) \n`
+                        if (icon != undefined)
+                            text += `${icon} ${user.name} (${Helper.math.formatPrice(user.prestige)}🌟) \n`
                         else
-                            text += `${indexRating}. ${user.name} (${Helper.math.formatPrice(user.money)}💵) \n`
+                            text += `${indexRating}. ${user.name} (${Helper.math.formatPrice(user.prestige)}🌟) \n`
                         indexRating++;
                     }
                     await bot.sendMessage(msg.chat.id, text);
