@@ -35,7 +35,7 @@ export default class BuildMenuBuyCommandCallback extends Command {
 
             await bot.answerCallbackQuery(ctx.id);
 
-            user.money -= build.price;
+            user.money -= (build.price * buildCount);
             user.prestige += build.prestige_lvl;
             user.city_info = cityInfo.getJSON();
 
