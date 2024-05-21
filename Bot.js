@@ -10,9 +10,13 @@ import JobsCommand from "./src/commands/JobsCommand.js";
 import JobCommandCallback from "./src/commandsCallback/JobCommandCallback.js";
 import {RatingCommand} from "./src/commands/RatingCommand.js";
 import AdminCheckPaydayBuildItems from "./src/commands/AdminCheckPaydayBuildItems.js";
+import {UserSettingsCommand} from "./src/commands/UserSettingsCommand.js";
+import {SettingsBuyCountCommandCallback} from "./src/commandsCallback/SettingCommandCallback.js";
 
 let start_time = new Date();
 console.log("Bot loading...");
+
+//prod - 5986324391:AAFuSQ20dkzU-Z3I4wdtL9OpsIOTGpW_slQ   |  dev - 6249415706:AAHb3aqqUw3IT_FXvqaPt1Qy6YeRgKhEapA
 
 let API_KEY_BOT = "6249415706:AAHb3aqqUw3IT_FXvqaPt1Qy6YeRgKhEapA";
 let admin_chat = -4101189130;
@@ -42,11 +46,13 @@ bot.regCommand(new PaydayCommand(bot));
 bot.regCommand(new JobsCommand(bot));
 bot.regCommand(new RatingCommand(bot));
 bot.regCommand(new AdminCheckPaydayBuildItems(bot));
+bot.regCommand(new UserSettingsCommand(bot));
 
 
 // Список команд под callback
 bot.regCallbackCommand(new BuildMenuBuyCommandCallback(bot));
 bot.regCallbackCommand(new JobCommandCallback(bot));
+bot.regCallbackCommand(new SettingsBuyCountCommandCallback(bot));
 
 bot.setMyCommands([
     {

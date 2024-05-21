@@ -55,6 +55,9 @@ class UserModel extends CommonModel {
                 },
                 prestige:{
                     type: DataTypes.STRING
+                },
+                settings:{
+                    type: DataTypes.JSON
                 }
             },
             {

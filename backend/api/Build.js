@@ -20,6 +20,7 @@ export async function getBuilds() {
 }
 
 export async function getBuild({body}) {
+    if(body.id == null) throw new Error("Invalid id");
     let t1 = await findBuildById(body.id);
     return t1;
 }

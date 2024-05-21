@@ -23,6 +23,10 @@ export const MainMenuKeyboard = {
                 {
                     row: 2,
                     text: "🥇Рейтинг",
+                },
+                {
+                    row: 3,
+                    text: "📝Настройки",
                 }
             ]
         ))
