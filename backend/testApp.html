@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<H1>Hello world</H1>
+<script src="./test_assets/socket.io.min.js"></script>
+<script>
+    const socket = io.connect('http://localhost:4000');
+    socket.on('connect', (data)=>{
+        console.log(data);
+    })
+</script>
+</body>
+</html>

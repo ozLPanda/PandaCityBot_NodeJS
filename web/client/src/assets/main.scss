@@ -1,0 +1,61 @@
+:root{
+  --color-warning: #d7d30e;
+  --color-success: #0ac756;
+  --color-primary: #0e4ae3;
+  --color-black: black;
+  --color-disabled: #949494;
+}
+
+body{
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0px;
+}
+
+#app{
+  width: 100%;
+  height: 100%;
+}
+
+.btn{
+  cursor: pointer;
+  outline: none;
+}
+
+.container{
+  margin: 0 auto;
+  transition: .3s width;
+
+  /* sm-устройства (больше или равно 576px) */
+  @media (min-width: 576px) {
+    /* CSS для: 576px <= ширины <= 767px */
+    padding: 0px 20px;
+    width: 100%;
+  }
+
+  /* md-устройства (больше или равно 768px) */
+  @media (min-width: 768px) {
+    /* CSS для: 768px <= ширины <= 991px */
+    padding: 0px 20px;
+    width: 100%;
+  }
+
+  /* lg-устройства (больше или равно 992px) */
+  @media (min-width: 992px) {
+    /* CSS для: 992px <= ширины <= 1119px */
+    padding: 0px 20px;
+    width: 85%;
+  }
+
+  /* xl-устройства (больше или равно 1200px) */
+  @media (min-width: 1200px) {
+    /* CSS для: ширины >= 1200px */
+    width: 80%;
+  }
+
+  @media (min-width: 1400px){
+    width: 75%;
+    max-width: 1600px;
+  }
+}

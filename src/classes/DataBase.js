@@ -6,6 +6,7 @@ import BuildCategoryModel from "../dataBaseModels/BuildCategoryModel.js";
 import BuildEconomyModel from "../dataBaseModels/BuildEconomyModel.js";
 import JobsModel from "../dataBaseModels/JobsModel.js";
 import UserLevelsModel from "../dataBaseModels/UserLevelsModel.js";
+import UsersCMS from "../dataBaseModels/UsersCMS.js";
 
 export default class DataBase extends Sequelize {
 
@@ -17,6 +18,7 @@ export default class DataBase extends Sequelize {
         "LogsModel": LogsModel,
         "JobsModel": JobsModel,
         "UserLevelsModel": UserLevelsModel,
+        "UsersCMS": UsersCMS
     }
 
     constructor(debug) {
