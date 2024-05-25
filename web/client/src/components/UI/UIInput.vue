@@ -26,6 +26,10 @@ const props = defineProps({
     type: String,
     default: '150px'
   },
+  inputClass:{
+    type: String,
+    default: ''
+  },
   modelValue: null
 })
 
@@ -40,7 +44,7 @@ watch(value, (val) => {
 <template>
   <div :class="[{ block__column: column }]" :style="[{gap: gap+'px'}]">
     <label>{{ title }}</label>
-    <input :style="{ width: size }" v-model="value" :type="type" :placeholder="placeholder" />
+    <input :class="inputClass" :style="{ width: size }" v-model="value" :type="type" :placeholder="placeholder" />
   </div>
 </template>
 

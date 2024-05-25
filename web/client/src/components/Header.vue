@@ -1,6 +1,11 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { reactive, ref, watch } from 'vue'
+import logoutIcon from '@/assets/icons/logout-icon.svg'
+import UIIconButton from '@/components/UI/UIIconButton.vue'
+import { useUserStore } from '@/stores/user.js'
+
+const { clearToken } = useUserStore()
 
 const routesLink = reactive([
   {
@@ -30,6 +35,10 @@ watch(
 function goTo(url) {
   if (router.currentRoute.value.name != url) router.push({ name: url })
 }
+
+function logOut() {
+  clearToken()
+}
 </script>
 
 <template>
@@ -43,6 +52,9 @@ function goTo(url) {
           <p class="btn__text" @click="goTo(link.routerName)">{{ link.name }}</p>
         </div>
       </div>
+      <div class="header__options">
+        <UIIconButton :icon="logoutIcon" @click="logOut" />
+      </div>
     </div>
   </header>
 </template>
@@ -52,7 +64,6 @@ header {
   display: flex;
   padding: 5px 15px;
   width: 100%;
-  height: 100%;
   background-color: #ffffff;
 
   & > div {

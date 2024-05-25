@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import {useUserStore} from "@/stores/user.js";
+import {computed} from "vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,13 +29,16 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from)=>{
-  const {token} = useUserStore()
+  let { token} = useUserStore()
 
   if(token == null && to.name != 'login') {
     router.replace({name: 'login'})
     return false
   }else if(token == null && to.name == 'login'){
     return true
+  }else if(token != null && to.name == 'login'){
+    router.replace({name: 'home'})
+    return false
   }else return true
 })
 

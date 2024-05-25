@@ -1,14 +1,14 @@
 <script setup>
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import ColumnGroup from 'primevue/columngroup';   // optional
-import Row from 'primevue/row';                   // optional
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import ColumnGroup from 'primevue/columngroup' // optional
+import Row from 'primevue/row' // optional
 
 const props = defineProps({
   items: Array,
-  columns: Array
+  columns: Array,
+  loading: Boolean
 })
-
 </script>
 
 <template>
@@ -16,6 +16,10 @@ const props = defineProps({
     <DataTable
       :value="items"
       tableStyle="min-width: 50rem"
+      scrollable
+      scroll-height="flex"
+      lazy
+      :loading="loading"
       paginator
       :rows="20"
       :rowsPerPageOptions="[20, 50, 100, 200, 500, 1000]"
@@ -27,11 +31,10 @@ const props = defineProps({
         v-for="column in columns"
         :field="column.field"
         :key="column.field"
-        :header="column.header"></Column>
+        :header="column.header"
+      ></Column>
     </DataTable>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
