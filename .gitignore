@@ -8,3 +8,4 @@ node_modules
 package-lock.json
 /web/package-lock.json
 /web/client/package-lock.json
+package-lock.json
