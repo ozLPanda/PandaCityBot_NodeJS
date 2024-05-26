@@ -29,18 +29,20 @@ for (let key in middleware) {
   for (let action in middleware[key]) {
     for (let item of middleware[key][action]) {
       console.log(`/api/${key}.${item.callback.name}`)
-      app.use(`/api/${key}.${item.callback.name}`, (req, res, next) => {
+      app.use(`/api/${key}.${item.callback.name}`, async (req, res, next) => {
         try {
           let status = true
           for (let middlewareCallback of item.middleware) {
-            status = middlewareCallback?.check(req, res, next)
+            status = await middlewareCallback?.check(req, res)
             if (status === false) break
           }
           if (status === false) {
-            res.status(405)
+            res.status(405).send()
+          }else{
+            next()
           }
         } catch (ex) {
-          req.status(500)
+          res.status(500).send()
         }
       })
     }

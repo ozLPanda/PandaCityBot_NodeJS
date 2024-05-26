@@ -8,6 +8,7 @@ import {
 } from '../api/BuildCategory.js'
 import { getLogs } from '../api/Log.js'
 import { Authorization } from '../middleware/Authorization.js'
+import { CheckAdmin } from '../middleware/CheckAdmin.js'
 
 export function loadApi() {
   return {
@@ -96,7 +97,7 @@ export function useApi() {
           callback: getBuildCategory
         },
         {
-          middleware: [Authorization],
+          middleware: [Authorization, CheckAdmin(20)],
           callback: getLogs
         }
       ],
