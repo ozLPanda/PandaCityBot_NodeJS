@@ -5,9 +5,20 @@ import LoginMiddleware from '../middleware/LoginMiddleware.js'
 
 export default class CasinoCommand extends Command {
   constructor(bot) {
-    super('💎Казино', async (msg) => {
+    super(['💎Казино', 'казино'], async (msg) => {
       const args = msg.text.split(' ')
-      const bet = Number(args[1])
+      let bet = 0
+      if (args[1].toLowerCase().indexOf('к') > -1) {
+        const _countK = (
+          args[1]
+            .substring(args[1].toLowerCase().indexOf('к'), args[1].length)
+            .match(new RegExp('к', 'g')) || []
+        ).length
+        bet = Number(args[1].substring(0, args[1].toLowerCase().indexOf('к')))
+        for (let i = 0; i < _countK; i++) bet *= 1000
+      } else {
+        bet = Number(args[1])
+      }
       const user = await bot.getUser(msg)
 
       if (!user.use_casino) {

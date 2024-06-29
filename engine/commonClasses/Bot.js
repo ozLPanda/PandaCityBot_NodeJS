@@ -96,9 +96,20 @@ export default class Bot extends TelegramBot {
 
     if (args.length > 1) cmd_text = args[0]
 
-    let command = this._commands.find((el) => el.cmd.toLowerCase() === msg.text.toLowerCase())
+    const findCommand = (cmdFind) => {
+      return this._commands.find((item) => {
+        if (Array.isArray(item.cmd)) {
+          return item.cmd.find((cmd) => cmd.toLowerCase() === cmdFind.toLowerCase())
+        }
+        return item.cmd.toLowerCase() === cmdFind.toLowerCase()
+      })
+    }
+
+    // let command = this._commands.find((el) => el.cmd.toLowerCase() === msg.text.toLowerCase())
+    let command = findCommand(msg.text)
     if (command === undefined) {
-      command = this._commands.find((el) => el.cmd.toLowerCase() === args[0].toLowerCase())
+      command = findCommand(args[0])
+      // command = this._commands.find((el) => el.cmd.toLowerCase() === args[0].toLowerCase())
     }
 
     if (command !== undefined) {
