@@ -1,6 +1,7 @@
 import TelegramBot from 'node-telegram-bot-api'
 import MachineStates from './MachineStates.js'
 import { ErrorEnum } from '../../src/enums/ErrorEnums.js'
+import 'dotenv/config.js'
 
 export default class Bot extends TelegramBot {
   _token = null
@@ -11,7 +12,7 @@ export default class Bot extends TelegramBot {
   models = {}
   db = null // База данных
   services = {} // Сервисы
-  timeServicesUpdate = 60_000
+  timeServicesUpdate = process.env.TIME_SERVICE_UPDATE
   intervalServices = null
   admin_chat = null
 
@@ -27,7 +28,6 @@ export default class Bot extends TelegramBot {
     })
     console.log('Bot created')
     this.admin_chat = admin_chat
-
     this.startServices().then()
   }
 
@@ -50,7 +50,8 @@ export default class Bot extends TelegramBot {
           }
         }
       } catch (ex) {
-        await this.sendMessage(this.admin_chat, `Произошла ошибка Bot -> on()\n${ex.message}`)
+        if (process.env.USE_LOG_ADMIN_CHAT === true)
+          await this.sendMessage(this.admin_chat, `Произошла ошибка Bot -> on()\n${ex.message}`)
       }
     })
     super.on('callback_query', async (ctx) => {
@@ -68,10 +69,11 @@ export default class Bot extends TelegramBot {
             console.error(ex)
           }
       } catch (ex) {
-        await this.sendMessage(
-          this.admin_chat,
-          `Произошла ошибка Bot -> on_callback()\n${ex.message}`
-        )
+        if (process.env.USE_LOG_ADMIN_CHAT === true)
+          await this.sendMessage(
+            this.admin_chat,
+            `Произошла ошибка Bot -> on_callback()\n${ex.message}`
+          )
       }
     })
   }

@@ -9,3 +9,4 @@ package-lock.json
 backend
 frontend
 package-lock.json
+/.env

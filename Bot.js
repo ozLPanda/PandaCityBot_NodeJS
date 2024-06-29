@@ -1,3 +1,4 @@
+import 'dotenv/config.js'
 import Bot from './engine/commonClasses/Bot.js'
 import DataBase from './src/classes/DataBase.js'
 import addServices from './src/functions/addServices.js'
@@ -23,10 +24,8 @@ import {
 let start_time = new Date()
 console.log('Bot loading...')
 
-//prod - 5986324391:AAFuSQ20dkzU-Z3I4wdtL9OpsIOTGpW_slQ   |  dev - 6249415706:AAHb3aqqUw3IT_FXvqaPt1Qy6YeRgKhEapA
-
-let API_KEY_BOT = '6249415706:AAHb3aqqUw3IT_FXvqaPt1Qy6YeRgKhEapA'
-let admin_chat = -4101189130
+let API_KEY_BOT = process.env.TOKEN_BOT
+let admin_chat = process.env.ID_ADMIN_CHAT
 let bot = new Bot(API_KEY_BOT, admin_chat)
 
 // bot.setTimeUpdateServices(3000);
