@@ -21,7 +21,7 @@ const props = defineProps({
       lazy
       :loading="loading"
       paginator
-      :rows="20"
+      :rows="1000"
       :rowsPerPageOptions="[20, 50, 100, 200, 500, 1000]"
     >
       <template #header>

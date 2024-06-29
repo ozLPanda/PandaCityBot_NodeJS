@@ -1,11 +1,11 @@
 import {Sequelize} from "sequelize";
-import UserModel from "../dataBaseModels/UserModel.js";
-import BuildItemsModel from "../dataBaseModels/BuildItemsModel.js";
-import LogsModel from "../dataBaseModels/LogsModel.js";
-import BuildCategoryModel from "../dataBaseModels/BuildCategoryModel.js";
-import BuildEconomyModel from "../dataBaseModels/BuildEconomyModel.js";
-import JobsModel from "../dataBaseModels/JobsModel.js";
-import UserLevelsModel from "../dataBaseModels/UserLevelsModel.js";
+import UserModel from "../dataBaseModels/botModels/UserModel.js";
+import BuildItemsModel from "../dataBaseModels/botModels/BuildItemsModel.js";
+import LogsModel from "../dataBaseModels/botModels/LogsModel.js";
+import BuildCategoryModel from "../dataBaseModels/botModels/BuildCategoryModel.js";
+import BuildEconomyModel from "../dataBaseModels/botModels/BuildEconomyModel.js";
+import JobsModel from "../dataBaseModels/botModels/JobsModel.js";
+import UserLevelsModel from "../dataBaseModels/botModels/UserLevelsModel.js";
 import UsersCMS from "../dataBaseModels/UsersCMS.js";
 
 export default class DataBase extends Sequelize {

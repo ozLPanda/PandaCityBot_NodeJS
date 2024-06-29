@@ -1,6 +1,6 @@
 import DataBaseModule from '../modules/DatabaseState.js'
 import { EnumsResult } from '../common/Enums.js'
-import BannedModel from '../../src/dataBaseModels/BannedModel.js'
+import BannedModel from '../../src/dataBaseModels/botModels/BannedModel.js'
 import { ApiController, ApiRequest } from '../common/ApiBase.js'
 import bcrypt from 'bcrypt'
 import { useErrorHandler } from '../utils/APIUtils.js'

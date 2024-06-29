@@ -1,4 +1,4 @@
-import CommonModel from "../../engine/commonClasses/CommonModel.js";
+import CommonModel from "../../../engine/commonClasses/CommonModel.js";
 import {DataTypes} from "sequelize";
 import BuildCategoryModel from "./BuildCategoryModel.js";
 

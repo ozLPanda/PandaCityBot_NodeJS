@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { loadApi, useApi } from './common/LoadApi.js'
+import { useApi } from './common/LoadApi.js'
 import DataBaseModule from './modules/DatabaseState.js'
 import bodyParser from 'body-parser'
 import multer from 'multer'
@@ -9,7 +9,7 @@ import fs from 'fs'
 export const privateKey = fs.readFileSync('assets\\keys\\private.key', 'utf8')
 export const publicKey = fs.readFileSync('assets\\keys\\public.key', 'utf8')
 const app = express()
-const port = 4000
+const port = 4004
 
 const apiModule = useApi()
 const middleware = apiModule.getMiddlewareApi()

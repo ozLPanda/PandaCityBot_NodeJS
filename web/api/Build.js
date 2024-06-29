@@ -1,8 +1,8 @@
 import DataBaseModule from "../modules/DatabaseState.js";
 import {setObjectFieldIfNotEmptyOrNull} from "../utils/APIUtils.js";
 import sequelize, {Sequelize} from "sequelize";
-import BuildCategoryModel from "../../src/dataBaseModels/BuildCategoryModel.js";
-import BuildItemsModel from "../../src/dataBaseModels/BuildItemsModel.js";
+import BuildCategoryModel from "../../src/dataBaseModels/botModels/BuildCategoryModel.js";
+import BuildItemsModel from "../../src/dataBaseModels/botModels/BuildItemsModel.js";
 
 async function findBuildById(id) {
     return await DataBaseModule.connection.models.BuildModel.findOne({

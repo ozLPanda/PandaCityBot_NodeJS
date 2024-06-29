@@ -57,8 +57,8 @@ export function useApi() {
       ],
       post: [
         {
-          middleware: [Authorization],
-          callback: saveUser
+          middleware: [],
+          callback: loginUser
         }
       ],
       delete: []

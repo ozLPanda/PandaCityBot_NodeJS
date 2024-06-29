@@ -1,0 +1,27 @@
+.btn {
+  cursor: pointer;
+  outline: none;
+  width: fit-content;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+
+  &__link {
+    color: #1393cc;
+    transition: .2s border-bottom;
+    min-height: 23px;
+
+    &:hover {
+      border-bottom: 1px solid #1393cc;
+    }
+
+    &:active{
+      color: #ff342a;
+      border-bottom: none;
+    }
+  }
+}

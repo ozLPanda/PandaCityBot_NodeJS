@@ -1,4 +1,4 @@
-import CommonModel from "../../engine/commonClasses/CommonModel.js";
+import CommonModel from "../../../engine/commonClasses/CommonModel.js";
 import {DataTypes} from "sequelize";
 
 export default class UserLevelsModel extends CommonModel {

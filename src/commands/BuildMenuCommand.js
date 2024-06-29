@@ -1,30 +1,32 @@
-import Command from "../../engine/commonClasses/Command.js";
-import inlineButtons from "../../engine/commonClasses/InlineButtons.js";
-import {Op} from "sequelize";
-import {Helper} from "../functions/commonFunctions.js";
-import LoginMiddleware from "../middleware/LoginMiddleware.js";
-
+import Command from '../../engine/commonClasses/Command.js'
+import inlineButtons from '../../engine/commonClasses/InlineButtons.js'
+import { Helper } from '../functions/commonFunctions.js'
+import LoginMiddleware from '../middleware/LoginMiddleware.js'
 
 export default class BuildMenuCommand extends Command {
-    constructor(bot) {
-        super("🏗Построить здания", async (msg) => {
-            let user = await bot.db.models.UserModel.findOne({where: {id_chat: msg.chat.id}});
-            if (user != null) {
-                let buildList = bot.services.ServiceBuildItems.items.filter(i=>{
-                    if(i.lvl <= user.lvl) return true
-                    else return false
-                });
+  constructor(bot) {
+    super('🏗Построить здания', async (msg) => {
+      let user = await bot.db.models.UserModel.findOne({ where: { id_chat: msg.chat.id } })
+      if (user != null) {
+        let buildList = bot.services.ServiceBuildItems.items.filter((i) => {
+          if (i.lvl <= user.lvl) return true
+          else return false
+        })
 
-                let arr_btns = buildList.map(el=>{
-                    return {
-                        text: `${Helper.text.getIcons(el.object_name)}${el.name} (${Helper.math.formatPrice(el.price)})`,
-                        callback_data: `menu.builds.buy/${el.id}`
-                    }
-                });
-                // await bot.answerCallbackQuery(ctx.id);
-                await bot.sendMessage(msg.chat.id, "Чтобы вы хотели построить?", new inlineButtons(arr_btns));
-            }
-        });
-        this.middlewares.push(new LoginMiddleware(bot));
-    }
+        let arr_btns = buildList.map((el) => {
+          return {
+            text: `${Helper.text.getIcons(el.object_name)}${el.name} (${Helper.math.formatPrice(el.price)})`,
+            callback_data: `menu.builds.buy/${el.id}`
+          }
+        })
+        // await bot.answerCallbackQuery(ctx.id);
+        await bot.sendMessage(
+          msg.chat.id,
+          'Чтобы вы хотели построить?',
+          new inlineButtons(arr_btns)
+        )
+      }
+    })
+    this.middlewares.push(new LoginMiddleware(bot))
+  }
 }
