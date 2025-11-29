@@ -22,21 +22,34 @@ export default class DataBase extends Sequelize {
     }
 
     constructor(debug) {
+        const {
+            DB_NAME = 'f0220387_pandaCity',
+            DB_USER = 'f0220387_f0220387',
+            DB_PASSWORD = 'n22022003',
+            DB_HOST = '141.8.192.54',
+            DB_PORT,
+            DB_DIALECT = 'mysql',
+            DB_LOGGING,
+        } = process.env
+
+        const logging = DB_LOGGING === undefined ? debug : DB_LOGGING === 'true'
+
         super(
-            'f0220387_pandaCity',
-            'f0220387_f0220387',
-            'n22022003',
+            DB_NAME,
+            DB_USER,
+            DB_PASSWORD,
             {
-                host: '141.8.192.54',
-                dialect: "mysql",
+                host: DB_HOST,
+                dialect: DB_DIALECT,
+                port: DB_PORT,
                 pool: {
                     max: 10, //максимальное кол-во соединений в пуле (Default: 5)
                     min: 0, //минимальное кол-во соединений в пуле (Default: 0)
                     acquire: 30000, //время в миллисекундах, в течение которого будет осуществляться попытка установить соединение, прежде чем будет сгенерировано исключение (Default: 60000)
                     idle: 10000, //время простоя в миллисекундах, по истечении которого соединение покинет пул (Default: 1000)
                 },
-                logging: debug,
-            });
+                logging: logging,
+            })
         this.init();
 
         LogsModel.belongsTo(UserModel, {as: "UserInfoLog", foreignKey: "id_user"});

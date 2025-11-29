@@ -1,0 +1,17 @@
+FROM node:18-alpine
+WORKDIR /app
+
+# Install server dependencies
+COPY web/package*.json ./web/
+RUN cd web && npm install
+
+# Install client dependencies
+COPY web/client/package*.json ./web/client/
+RUN cd web/client && npm install
+
+# Copy project files
+COPY . .
+WORKDIR /app/web
+
+EXPOSE 4004 5173
+CMD ["npm", "run", "dev"]
