@@ -23,12 +23,12 @@ export default class DataBase extends Sequelize {
 
     constructor(debug) {
         const {
-            DB_NAME = 'f0220387_pandaCity',
-            DB_USER = 'f0220387_f0220387',
-            DB_PASSWORD = 'n22022003',
-            DB_HOST = '141.8.192.54',
+            DB_NAME,
+            DB_USER,
+            DB_PASSWORD,
+            DB_HOST = 'localhost',
             DB_PORT,
-            DB_DIALECT = 'mysql',
+            DB_DIALECT = 'postgres',
             DB_LOGGING,
         } = process.env
 
