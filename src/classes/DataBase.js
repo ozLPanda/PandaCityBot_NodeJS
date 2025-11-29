@@ -48,7 +48,7 @@ export default class DataBase extends Sequelize {
                     acquire: 30000, //время в миллисекундах, в течение которого будет осуществляться попытка установить соединение, прежде чем будет сгенерировано исключение (Default: 60000)
                     idle: 10000, //время простоя в миллисекундах, по истечении которого соединение покинет пул (Default: 1000)
                 },
-                logging: logging,
+                logging: logging ? console.log : false,
             })
         this.init();
 
