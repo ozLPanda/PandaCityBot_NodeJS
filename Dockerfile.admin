@@ -1,6 +1,13 @@
 FROM node:18-alpine
 WORKDIR /app
 
+# Build tools and Postgres headers needed for pg native bindings
+RUN apk add --no-cache python3 make g++ postgresql-dev
+
+# Install shared bot/admin dependencies (used by DatabaseState)
+COPY package*.json ./
+RUN npm install --production
+
 # Install server dependencies
 COPY web/package*.json ./web/
 RUN cd web && npm install
