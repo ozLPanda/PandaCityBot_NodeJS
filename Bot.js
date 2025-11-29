@@ -34,15 +34,14 @@ let debug_mode = false
 
 let db = new DataBase(debug_mode)
 
-await db
-  .authenticate()
-  .then(async (res) => {
-    console.log('DataBase connected')
-    bot.db = db
-  })
-  .catch((ex) => {
-    console.error(ex)
-  })
+try {
+  await db.authenticate()
+  console.log('DataBase connected')
+  await db.migrate()
+  bot.db = db
+} catch (ex) {
+  console.error(ex)
+}
 
 // Запуск и регистрация сервисов
 addServices(bot)

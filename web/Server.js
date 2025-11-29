@@ -50,7 +50,7 @@ app.use(bodyParser.urlencoded())
 app.use(bodyParser.json())
 app.use(cors())
 
-DataBaseModule.init()
+await DataBaseModule.init()
 
 // Init middlewares
 for (let key in middleware) {

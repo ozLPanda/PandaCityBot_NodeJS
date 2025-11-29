@@ -62,4 +62,13 @@ export default class DataBase extends Sequelize {
             this.models[key].init(this);
         }
     }
+
+    /**
+     * Выполняет миграцию схемы БД на основе описанных моделей.
+     * Создаёт отсутствующие таблицы и обновляет связи, не теряя данные.
+     * @param {{ alter?: boolean, force?: boolean }} options
+     */
+    async migrate(options = { alter: true, force: false }) {
+        await this.sync(options);
+    }
 }
