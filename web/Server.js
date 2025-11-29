@@ -5,9 +5,37 @@ import DataBaseModule from './modules/DatabaseState.js'
 import bodyParser from 'body-parser'
 import multer from 'multer'
 import fs from 'fs'
+import path from 'path'
+import * as crypto from 'crypto'
+import { fileURLToPath } from 'url'
 
-export const privateKey = fs.readFileSync('assets\\keys\\private.key', 'utf8')
-export const publicKey = fs.readFileSync('assets\\keys\\public.key', 'utf8')
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const keyDir = path.resolve(__dirname, 'assets', 'keys')
+const privateKeyPath = path.join(keyDir, 'private.key')
+const publicKeyPath = path.join(keyDir, 'public.key')
+
+function ensureKeys () {
+  if (!fs.existsSync(keyDir)) {
+    fs.mkdirSync(keyDir, { recursive: true })
+  }
+
+  if (!fs.existsSync(privateKeyPath) || !fs.existsSync(publicKeyPath)) {
+    const { publicKey: generatedPublicKey, privateKey: generatedPrivateKey } = crypto.generateKeyPairSync('rsa', {
+      modulusLength: 2048,
+      publicKeyEncoding: { type: 'spki', format: 'pem' },
+      privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
+    })
+
+    fs.writeFileSync(publicKeyPath, generatedPublicKey)
+    fs.writeFileSync(privateKeyPath, generatedPrivateKey)
+  }
+}
+
+ensureKeys()
+
+export const privateKey = fs.readFileSync(privateKeyPath, 'utf8')
+export const publicKey = fs.readFileSync(publicKeyPath, 'utf8')
 const app = express()
 const port = 4004
 
