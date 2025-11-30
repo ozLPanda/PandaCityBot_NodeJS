@@ -22,20 +22,14 @@ SERVER_PID=$!
 npm run client &
 CLIENT_PID=$!
 
-trap 'kill -TERM $SERVER_PID $CLIENT_PID 2>/dev/null || true' INT TERM
+trap 'kill -TERM "$SERVER_PID" "$CLIENT_PID" 2>/dev/null || true' INT TERM
 
-while true; do
-  if ! kill -0 "$SERVER_PID" 2>/dev/null; then
-    break
-  fi
+wait "$SERVER_PID"
+SERVER_STATUS=$?
 
-  if ! kill -0 "$CLIENT_PID" 2>/dev/null; then
-    break
-  fi
+wait "$CLIENT_PID"
+CLIENT_STATUS=$?
 
-  sleep 1
-done
-
-kill -TERM $SERVER_PID $CLIENT_PID 2>/dev/null || true
-wait $SERVER_PID 2>/dev/null || true
-wait $CLIENT_PID 2>/dev/null || true
+if [ "$SERVER_STATUS" -ne 0 ] || [ "$CLIENT_STATUS" -ne 0 ]; then
+  exit 1
+fi
