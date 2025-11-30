@@ -24,6 +24,18 @@ CLIENT_PID=$!
 
 trap 'kill -TERM $SERVER_PID $CLIENT_PID 2>/dev/null || true' INT TERM
 
-wait -n $SERVER_PID $CLIENT_PID
+while true; do
+  if ! kill -0 "$SERVER_PID" 2>/dev/null; then
+    break
+  fi
+
+  if ! kill -0 "$CLIENT_PID" 2>/dev/null; then
+    break
+  fi
+
+  sleep 1
+done
+
 kill -TERM $SERVER_PID $CLIENT_PID 2>/dev/null || true
-wait
+wait $SERVER_PID 2>/dev/null || true
+wait $CLIENT_PID 2>/dev/null || true
