@@ -21,7 +21,8 @@ COPY . .
 WORKDIR /app
 
 COPY docker-entrypoint.admin.sh /usr/local/bin/docker-entrypoint.admin.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.admin.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.admin.sh \
+  && sed -i 's/\r$//' /usr/local/bin/docker-entrypoint.admin.sh
 
 EXPOSE 4004 5173
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.admin.sh"]
+ENTRYPOINT ["/bin/sh", "/usr/local/bin/docker-entrypoint.admin.sh"]
