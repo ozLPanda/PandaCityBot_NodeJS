@@ -30,7 +30,7 @@ class UserModel extends CommonModel {
           type: DataTypes.JSON
         },
         admin_lvl: {
-          type: DataTypes.TINYINT
+          type: DataTypes.SMALLINT
         },
         money: {
           type: DataTypes.STRING
