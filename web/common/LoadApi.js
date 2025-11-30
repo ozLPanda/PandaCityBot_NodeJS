@@ -1,8 +1,9 @@
 import { adminCreate, getUser, getUsers, loginUser, removeUser, saveUser } from '../api/User.js'
-import { getBuild, getBuilds, removeBuild, updateBuild } from '../api/Build.js'
+import { createBuild, getBuild, getBuilds, removeBuild, updateBuild } from '../api/Build.js'
 import {
   getBuildCategories,
   getBuildCategory,
+  createBuildCategory,
   removeBuildCategory,
   updateBuildCategory
 } from '../api/BuildCategory.js'
@@ -33,7 +34,7 @@ export function loadApi() {
     owner: {
       get: [getBuildCategories, getBuildCategory, getLogs],
       put: [updateBuild, updateBuildCategory],
-      post: [adminCreate],
+      post: [adminCreate, createBuild, createBuildCategory],
       delete: [removeBuild, removeBuildCategory]
     }
   }
@@ -115,6 +116,14 @@ export function useApi() {
         {
           middleware: [Authorization],
           callback: adminCreate
+        },
+        {
+          middleware: [Authorization],
+          callback: createBuild
+        },
+        {
+          middleware: [Authorization],
+          callback: createBuildCategory
         }
       ],
       delete: [

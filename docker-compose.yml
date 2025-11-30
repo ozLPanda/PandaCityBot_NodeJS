@@ -1,0 +1,64 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: pandacity-db
+    environment:
+      POSTGRES_DB: panda_city
+      POSTGRES_USER: panda
+      POSTGRES_PASSWORD: panda_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    container_name: pandacity-bot
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/web/node_modules
+      - /app/web/client/node_modules
+    depends_on:
+      - db
+    environment:
+      TOKEN_BOT: ${TOKEN_BOT:-changeme}
+      ID_ADMIN_CHAT: ${ID_ADMIN_CHAT:-0}
+      DB_NAME: panda_city
+      DB_USER: panda
+      DB_PASSWORD: panda_password
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DIALECT: postgres
+    restart: unless-stopped
+
+  admin:
+    build:
+      context: .
+      dockerfile: Dockerfile.admin
+    container_name: pandacity-admin
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/web/node_modules
+      - /app/web/client/node_modules
+    depends_on:
+      - db
+    environment:
+      DB_NAME: panda_city
+      DB_USER: panda
+      DB_PASSWORD: panda_password
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DIALECT: postgres
+    ports:
+      - "4004:4004"
+      - "5173:5173"
+    restart: unless-stopped
+
+volumes:
+  db_data:

@@ -1,5 +1,6 @@
 import 'vue-toast/dist/vue-toast.min.css'
 import 'primevue/resources/themes/aura-light-green/theme.css'
+import 'primeicons/primeicons.css'
 import './assets/main.scss'
 
 import { createApp } from 'vue'

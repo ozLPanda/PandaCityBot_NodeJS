@@ -5,10 +5,12 @@ export default {
     debug_mode: true,
     async init() {
         this.connection = new DataBase(this.debug_mode);
-        await this.connection.authenticate().then(async res => {
+        try {
+            await this.connection.authenticate();
             console.log('DataBase connected');
-        }).catch(ex => {
+            await this.connection.migrate();
+        } catch (ex) {
             console.error(ex);
-        });
+        }
     }
 }

@@ -41,3 +41,12 @@ export async function removeBuildCategory({body}){
         throw new Error("Category not found");
     }
 }
+
+export async function createBuildCategory({body}){
+    const category = await DataBaseModule.connection.models.BuildCategoryModel.create({
+        name: body.name,
+        code_name: body.code_name
+    });
+    await category.save();
+    return category;
+}

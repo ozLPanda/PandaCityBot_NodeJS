@@ -2,7 +2,7 @@ import DataBaseModule from '../modules/DatabaseState.js'
 import { EnumsResult } from '../common/Enums.js'
 import BannedModel from '../../src/dataBaseModels/botModels/BannedModel.js'
 import { ApiController, ApiRequest } from '../common/ApiBase.js'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import { useErrorHandler } from '../utils/APIUtils.js'
 import {useJwt} from "../utils/Jwt.js";
 
@@ -111,8 +111,8 @@ export async function adminCreate({ body }, res) {
   })
 }
 
-async function encryptPassword(password, lenght = 10) {
-  const salt = await bcrypt.genSalt(lenght)
+function encryptPassword(password, lenght = 10) {
+  const salt = bcrypt.genSaltSync(lenght)
   const hash = bcrypt.hashSync(password, salt)
   return hash
 }
