@@ -18,6 +18,11 @@ services:
       context: .
       dockerfile: Dockerfile.bot
     container_name: pandacity-bot
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/web/node_modules
+      - /app/web/client/node_modules
     depends_on:
       - db
     environment:
@@ -36,6 +41,11 @@ services:
       context: .
       dockerfile: Dockerfile.admin
     container_name: pandacity-admin
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/web/node_modules
+      - /app/web/client/node_modules
     depends_on:
       - db
     environment:
