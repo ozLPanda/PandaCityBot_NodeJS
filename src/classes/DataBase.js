@@ -54,7 +54,7 @@ export default class DataBase extends Sequelize {
 
         LogsModel.belongsTo(UserModel, {as: "UserInfoLog", foreignKey: "id_user"});
         BuildItemsModel.belongsTo(BuildCategoryModel, {as: "Category", foreignKey: "id_category"});
-        UserModel.hasOne(UserLevelsModel, {as: "Levels", sourceKey: "lvl", foreignKey: "lvl"});
+        UserModel.belongsTo(UserLevelsModel, {as: "Levels", foreignKey: "lvl", targetKey: "lvl"});
     }
 
     init() {
