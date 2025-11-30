@@ -9,4 +9,7 @@ RUN npm install --production
 
 COPY . .
 
-CMD ["node", "Bot.js"]
+COPY docker-entrypoint.bot.sh /usr/local/bin/docker-entrypoint.bot.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.bot.sh
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.bot.sh"]
