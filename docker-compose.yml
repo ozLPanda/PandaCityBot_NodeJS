@@ -18,11 +18,12 @@ services:
       context: .
       dockerfile: Dockerfile.bot
     container_name: pandacity-bot
+    working_dir: /app
+    command: sh -c "npm install && npm run dev:bot"
     volumes:
-      - ./:/app
-      - /app/node_modules
-      - /app/web/node_modules
-      - /app/web/client/node_modules
+      - type: bind
+        source: .
+        target: /app
     depends_on:
       - db
     environment:
@@ -41,11 +42,12 @@ services:
       context: .
       dockerfile: Dockerfile.admin
     container_name: pandacity-admin
+    working_dir: /app
+    command: sh -c "npm install && cd /app/web && npm install && cd /app/web/client && npm install && cd /app/web && npm run dev"
     volumes:
-      - ./:/app
-      - /app/node_modules
-      - /app/web/node_modules
-      - /app/web/client/node_modules
+      - type: bind
+        source: .
+        target: /app
     depends_on:
       - db
     environment:

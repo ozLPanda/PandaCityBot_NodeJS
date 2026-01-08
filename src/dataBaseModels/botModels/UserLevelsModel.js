@@ -12,6 +12,7 @@ export default class UserLevelsModel extends CommonModel {
                 id: {
                     type: DataTypes.BIGINT,
                     primaryKey: true,
+                    autoIncrement: true,
                 },
                 name: {
                     type: DataTypes.TEXT

@@ -11,7 +11,8 @@ class LogsModel extends CommonModel {
       {
         id: {
           type: DataTypes.BIGINT,
-          primaryKey: true
+          primaryKey: true,
+          autoIncrement: true
         },
         name: {
           type: DataTypes.TEXT

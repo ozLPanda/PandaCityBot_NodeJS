@@ -11,7 +11,7 @@ class UserModel extends CommonModel {
     lvl: 1,
     adminLvl: 0,
     cityInfo: JSON.stringify(new CityInfo()),
-    created_at: Number(new Date()) / 1000
+    created_at: Math.floor(Date.now() / 1000)
   }
 
   static init(sequelize) {
@@ -25,6 +25,12 @@ class UserModel extends CommonModel {
         },
         name: {
           type: DataTypes.STRING
+        },
+        login: {
+          type: DataTypes.STRING
+        },
+        password: {
+          type: DataTypes.TEXT
         },
         city_info: {
           type: DataTypes.JSON
@@ -78,6 +84,18 @@ class UserModel extends CommonModel {
       await bot.sendMessage(idChat, ErrorEnum.EmojiInName)
       throw new Error(ErrorEnum.EmojiInName)
     }
+    const fallbackLevel = await this.db.models.UserLevelsModel.findOne({
+      where: { lvl: this.defaultSetting.lvl }
+    })
+    const levelRow =
+      fallbackLevel ??
+      (await this.db.models.UserLevelsModel.findOne({
+        order: [['lvl', 'ASC']]
+      }))
+    if (!levelRow) {
+      await bot.sendMessage(idChat, ErrorEnum.ServerError)
+      throw new Error('User levels table is empty')
+    }
     let checkName = this.db.models.UserModel.findAll({
       where: {
         name: name
@@ -93,9 +111,14 @@ class UserModel extends CommonModel {
           await bot.sendMessage(idChat, ErrorEnum.IncorrectName)
           throw new Error(ErrorEnum.IncorrectName)
         }
-        this.defaultSetting.id_chat = idChat
-        this.defaultSetting.name = name
-        this.db.models.UserModel.create(this.defaultSetting).then((res) => {
+        const payload = {
+          ...this.defaultSetting,
+          id_chat: idChat,
+          name,
+          lvl: levelRow.lvl,
+          created_at: Math.floor(Date.now() / 1000)
+        }
+        this.db.models.UserModel.create(payload).then((res) => {
           console.log(`${moment().format('DD.MM.YYYY HH:mm:SS')} User created ${name}`)
         })
       })

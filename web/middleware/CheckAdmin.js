@@ -6,9 +6,9 @@ export const CheckAdmin = (checkLvl)=>{
     try {
       const jwt = useJwt()
       const tokenData = await jwt.decodeToken(req.header('authorization'))
-      let user = await DataBaseModule.connection.models.UsersCMS.findOne({
+      let user = await DataBaseModule.connection.models.UserModel.findOne({
         where: {
-          id: tokenData.id
+          id_chat: tokenData.id
         }
       })
       if(user != null){

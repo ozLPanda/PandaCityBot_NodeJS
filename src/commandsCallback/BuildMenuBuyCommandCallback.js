@@ -32,7 +32,15 @@ export default class BuildMenuBuyCommandCallback extends Command {
   async buyBuild(bot, user, build, msg, ctx, buildCount) {
     try {
       let cityInfo = new CityInfo(user.city_info)
-      cityInfo[build.Category.dataValues.code_name][build.object_name] += buildCount
+      const categoryKey = build.Category?.dataValues?.code_name ?? build.Category?.code_name
+      cityInfo.ensureCategory(categoryKey)
+      if (categoryKey == null) {
+        throw new Error('Build category code_name is missing')
+      }
+      if (cityInfo[categoryKey][build.object_name] == null) {
+        cityInfo[categoryKey][build.object_name] = 0
+      }
+      cityInfo[categoryKey][build.object_name] += buildCount
 
       await bot.answerCallbackQuery(ctx.id)
 

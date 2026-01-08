@@ -7,6 +7,13 @@ import {
   removeBuildCategory,
   updateBuildCategory
 } from '../api/BuildCategory.js'
+import {
+  getUserLevel,
+  getUserLevels,
+  createUserLevel,
+  removeUserLevel,
+  updateUserLevel
+} from '../api/UserLevels.js'
 import { getLogs } from '../api/Log.js'
 import { Authorization } from '../middleware/Authorization.js'
 import { CheckAdmin } from '../middleware/CheckAdmin.js'
@@ -32,10 +39,10 @@ export function loadApi() {
       delete: []
     },
     owner: {
-      get: [getBuildCategories, getBuildCategory, getLogs],
-      put: [updateBuild, updateBuildCategory],
-      post: [adminCreate, createBuild, createBuildCategory],
-      delete: [removeBuild, removeBuildCategory]
+      get: [getBuildCategories, getBuildCategory, getUserLevels, getUserLevel, getLogs],
+      put: [updateBuild, updateBuildCategory, updateUserLevel],
+      post: [adminCreate, createBuild, createBuildCategory, createUserLevel],
+      delete: [removeBuild, removeBuildCategory, removeUserLevel]
     }
   }
 }
@@ -98,6 +105,14 @@ export function useApi() {
           callback: getBuildCategory
         },
         {
+          middleware: [Authorization],
+          callback: getUserLevels
+        },
+        {
+          middleware: [Authorization],
+          callback: getUserLevel
+        },
+        {
           middleware: [Authorization, CheckAdmin(20)],
           callback: getLogs
         }
@@ -110,11 +125,15 @@ export function useApi() {
         {
           middleware: [Authorization],
           callback: updateBuildCategory
+        },
+        {
+          middleware: [Authorization],
+          callback: updateUserLevel
         }
       ],
       post: [
         {
-          middleware: [Authorization],
+          middleware: [],
           callback: adminCreate
         },
         {
@@ -124,6 +143,10 @@ export function useApi() {
         {
           middleware: [Authorization],
           callback: createBuildCategory
+        },
+        {
+          middleware: [Authorization],
+          callback: createUserLevel
         }
       ],
       delete: [
@@ -134,6 +157,10 @@ export function useApi() {
         {
           middleware: [Authorization],
           callback: removeBuildCategory
+        },
+        {
+          middleware: [Authorization],
+          callback: removeUserLevel
         }
       ]
     }

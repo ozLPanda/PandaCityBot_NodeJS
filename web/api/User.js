@@ -4,7 +4,7 @@ import BannedModel from '../../src/dataBaseModels/botModels/BannedModel.js'
 import { ApiController, ApiRequest } from '../common/ApiBase.js'
 import bcrypt from 'bcryptjs'
 import { useErrorHandler } from '../utils/APIUtils.js'
-import {useJwt} from "../utils/Jwt.js";
+import { useJwt } from '../utils/Jwt.js'
 
 export const UserController = new ApiController('User', [], [])
 
@@ -77,20 +77,22 @@ export async function loginUser({ body }, res) {
   useError.isNullOrEmpty(body.password, 'Password field is required')
 
   return await useError.checkStatus(async () => {
-    let user = await DataBaseModule.connection.models.UsersCMS.findOne({
+    let user = await DataBaseModule.connection.models.UserModel.findOne({
       where: {
         login: body.login
       }
     })
-    if(user == null){
+    if (user == null) {
       return useError.sendErrorNotFound(errorLogin)
-    }else{
-      let check = checkPassword(body.password, user.password)
-      if(check === false){
+    } else {
+      let check = user.password != null ? checkPassword(body.password, user.password) : false
+      if (check === false) {
         return useError.sendErrorNotFound(errorLogin)
-      }else{
-        let token = await jwt.createToken({id: user.id, login: user.login})
-        return {token}
+      } else if (user.admin_lvl == null || user.admin_lvl <= 0) {
+        return useError.sendErrorNotFound(errorLogin)
+      } else {
+        let token = await jwt.createToken({ id: user.id_chat, login: user.login })
+        return { token }
       }
     }
   })
@@ -102,10 +104,24 @@ export async function adminCreate({ body }, res) {
   useError.isNullOrEmpty(body.password, 'Password field is required')
 
   return await useError.checkStatus(async () => {
-    let user = await DataBaseModule.connection.models.UsersCMS.create({
-      login: body.login,
-      password: await encryptPassword(body.password)
+    const User = DataBaseModule.connection.models.UserModel
+    let user = await User.findOne({
+      where: {
+        login: body.login
+      }
     })
+    if (user == null) {
+      user = await User.create({
+        id_chat: body.id_chat ?? Date.now(),
+        login: body.login,
+        password: await encryptPassword(body.password),
+        admin_lvl: body.admin_lvl ?? 100
+      })
+    } else {
+      user.password = await encryptPassword(body.password)
+      user.login = body.login
+      user.admin_lvl = body.admin_lvl ?? user.admin_lvl ?? 100
+    }
     await user.save()
     return user
   })

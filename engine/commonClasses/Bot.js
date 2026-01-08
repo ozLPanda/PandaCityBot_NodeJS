@@ -189,9 +189,12 @@ export default class Bot extends TelegramBot {
         }
       ]
     })
+    if (!user) {
+      return null
+    }
     let keysBigInt = ['money', 'prestige']
-    user.money = BigInt(user.money)
-    user.prestige = BigInt(user.prestige)
+    user.money = BigInt(user.money ?? 0)
+    user.prestige = BigInt(user.prestige ?? 0)
     user = new Proxy(user, {
       get(target, prop) {
         if (keysBigInt.includes(prop)) {

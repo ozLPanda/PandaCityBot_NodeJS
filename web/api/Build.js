@@ -7,7 +7,6 @@ async function findBuildById(id) {
             id: id,
         },
         include: [{association: "Category"}],
-        group: "id",
     })
 }
 

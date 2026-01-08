@@ -1,4 +1,4 @@
-import {Sequelize} from "sequelize";
+import { Sequelize } from "sequelize";
 import UserModel from "../dataBaseModels/botModels/UserModel.js";
 import BuildItemsModel from "../dataBaseModels/botModels/BuildItemsModel.js";
 import LogsModel from "../dataBaseModels/botModels/LogsModel.js";
@@ -6,7 +6,7 @@ import BuildCategoryModel from "../dataBaseModels/botModels/BuildCategoryModel.j
 import BuildEconomyModel from "../dataBaseModels/botModels/BuildEconomyModel.js";
 import JobsModel from "../dataBaseModels/botModels/JobsModel.js";
 import UserLevelsModel from "../dataBaseModels/botModels/UserLevelsModel.js";
-import UsersCMS from "../dataBaseModels/UsersCMS.js";
+import BannedModel from "../dataBaseModels/botModels/BannedModel.js";
 
 export default class DataBase extends Sequelize {
 
@@ -18,7 +18,7 @@ export default class DataBase extends Sequelize {
         "LogsModel": LogsModel,
         "JobsModel": JobsModel,
         "UserLevelsModel": UserLevelsModel,
-        "UsersCMS": UsersCMS
+        "BannedModel": BannedModel
     }
 
     constructor(debug) {
@@ -70,5 +70,33 @@ export default class DataBase extends Sequelize {
      */
     async migrate(options = { alter: true, force: false }) {
         await this.sync(options);
+        await this.ensureAutoIncrementSequences();
+    }
+
+    async ensureAutoIncrementSequences() {
+        if (this.getDialect() !== 'postgres') {
+            return;
+        }
+        const targets = [
+            { table: 'user_levels', sequence: 'user_levels_id_seq' },
+            { table: 'logs', sequence: 'logs_id_seq' },
+            { table: 'build_category', sequence: 'build_category_id_seq' },
+            { table: 'build_items', sequence: 'build_items_id_seq' },
+            { table: 'build_economy', sequence: 'build_economy_id_seq' },
+            { table: 'jobs', sequence: 'jobs_id_seq' },
+            { table: 'ban_users', sequence: 'ban_users_id_seq' }
+        ];
+
+        for (const target of targets) {
+            await this.ensureAutoIncrementSequence(target.table, target.sequence);
+        }
+    }
+
+    async ensureAutoIncrementSequence(table, sequenceName) {
+        await this.query(`CREATE SEQUENCE IF NOT EXISTS ${sequenceName};`);
+        await this.query(`ALTER TABLE ${table} ALTER COLUMN id SET DEFAULT nextval('${sequenceName}');`);
+        await this.query(
+            `SELECT setval('${sequenceName}', COALESCE((SELECT MAX(id) FROM ${table}), 1));`
+        );
     }
 }

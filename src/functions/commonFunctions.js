@@ -5,6 +5,9 @@ import CityInfo from "../classes/CityInfo.js";
 export const Helper = {
     math: {
         formatPrice(x) {
+            if (x == null) {
+                return "0"
+            }
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
         }
     },
@@ -19,11 +22,16 @@ export const Helper = {
             let lvlUp = false;
             let levelObject = await bot.db.models.UserLevelsModel.findOne({where: {lvl: user.lvl}});
             user.exp += exp;
-            while (levelObject.exp_need <= user.exp) {
+            while (levelObject != null && levelObject.exp_need <= user.exp) {
+                const nextLevel = await bot.db.models.UserLevelsModel.findOne({ where: { lvl: user.lvl + 1 } });
+                if (nextLevel == null) {
+                    user.exp = levelObject.exp_need;
+                    break;
+                }
                 user.lvl += 1;
                 lvlUp = true;
                 user.exp = user.exp - levelObject.exp_need;
-                levelObject = await bot.db.models.UserLevelsModel.findOne({where: {lvl: user.lvl}});
+                levelObject = nextLevel;
             }
 
             if (lvlUp)

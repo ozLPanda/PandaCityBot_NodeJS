@@ -6,18 +6,39 @@
   --color-primary: #0e4ae3;
   --color-black: black;
   --color-disabled: #949494;
+  --surface-0: #ffffff;
+  --surface-1: #f7f5ef;
+  --surface-2: #efede6;
+  --ink-0: #0f1d2d;
+  --ink-1: #223044;
+  --ink-2: #5d6b7b;
+  --brand-0: #1b7f79;
+  --brand-1: #2cbf93;
+  --accent-0: #f2b95c;
+  --stroke-0: rgba(15, 29, 45, 0.08);
+  --shadow-0: 0 18px 45px rgba(20, 26, 35, 0.12);
 }
 
 body {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
   padding: 0px;
+  font-family: 'Space Grotesk', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  color: var(--ink-0);
+  background:
+    radial-gradient(1200px 600px at 12% 8%, rgba(44, 191, 147, 0.14), transparent 60%),
+    radial-gradient(900px 520px at 92% 0%, rgba(242, 185, 92, 0.22), transparent 55%),
+    linear-gradient(180deg, #faf9f5 0%, #f3f1ea 100%);
 }
 
 #app {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 .noselect {

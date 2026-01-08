@@ -1,0 +1,8 @@
+{
+  "watch": [
+    "engine",
+    "src",
+    "service"
+  ],
+  "ext": "js,json"
+}

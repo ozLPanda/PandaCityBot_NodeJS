@@ -13,7 +13,7 @@ const routesLink = reactive([
     routerName: 'home'
   },
   {
-    name: 'Управление постройками',
+    name: 'Таблицы',
     routerName: 'controlDatabase'
   },
   {
@@ -62,9 +62,15 @@ function logOut() {
 <style lang="scss" scoped>
 header {
   display: flex;
-  padding: 5px 15px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: 14px 18px;
   width: 100%;
-  background-color: #ffffff;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--stroke-0);
+  box-shadow: 0 10px 25px rgba(15, 29, 45, 0.08);
 
   & > div {
     display: flex;
@@ -79,12 +85,28 @@ header {
     gap: 15px;
 
     & .btn__block {
-      border-bottom: 1px solid transparent;
-      transition: 0.5s all;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      padding: 6px 12px;
+      transition: 0.2s ease;
+      color: var(--ink-1);
+
+      &:hover {
+        background: rgba(27, 127, 121, 0.1);
+        border-color: rgba(27, 127, 121, 0.25);
+      }
     }
 
     & .active {
-      border-bottom-color: var(--color-primary);
+      background: rgba(27, 127, 121, 0.16);
+      border-color: rgba(27, 127, 121, 0.4);
+      box-shadow: 0 8px 18px rgba(27, 127, 121, 0.12);
+    }
+
+    & .btn__text {
+      margin: 0;
+      font-weight: 600;
+      letter-spacing: 0.2px;
     }
   }
 }
